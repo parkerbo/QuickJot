@@ -1,33 +1,47 @@
 import React from "react";
+import * as sessionActions from "../../store/session";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import quickJotLogo from '../../images/QuickJot_logo.png'
 
 function Navigation({ isLoaded }) {
+    const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-
+const demoLogin = (e) => {
+	e.preventDefault();
+	return dispatch(sessionActions.demoLogin());
+};
 	let sessionLinks;
 	if (sessionUser) {
 		sessionLinks = <ProfileButton user={sessionUser} />;
 	} else {
 		sessionLinks = (
 			<>
-				<NavLink to="/login">Log In</NavLink>
-				<NavLink to="/signup">Sign Up</NavLink>
+				<li>
+					<NavLink to="/login">Log In</NavLink>
+				</li>
+				<li onClick={demoLogin} id="demo-login">
+					Demo
+				</li>
+				<li id="nav-bar-sign-up">
+					<NavLink to="/signup">Sign Up</NavLink>
+				</li>
 			</>
 		);
 	}
 
 	return (
-		<ul>
-			<li>
-				<NavLink exact to="/">
-					Home
-				</NavLink>
-				{isLoaded && sessionLinks}
-			</li>
-		</ul>
+		<div className="nav-bar">
+			<div id="nav-logo">
+                <img src={quickJotLogo} />
+			</div>
+			<NavLink exact to="/">
+				<h1>QuickJot</h1>
+			</NavLink>
+			<ul className="nav-bar-links">{isLoaded && sessionLinks}</ul>
+		</div>
 	);
 }
 

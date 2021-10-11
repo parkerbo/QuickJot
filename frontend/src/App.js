@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
+import Splash from "./components/Splash";
 import SignupFormPage from "./components/SignUpForm";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 
 function App() {
+  const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
 	useEffect(() => {
@@ -18,6 +20,9 @@ function App() {
 			<Navigation isLoaded={isLoaded} />
 			{isLoaded && (
 				<Switch>
+					<Route exact path="/">
+						{!sessionUser && <Splash />}
+					</Route>
 					<Route path="/login">
 						<LoginFormPage />
 					</Route>
