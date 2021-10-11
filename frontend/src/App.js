@@ -6,6 +6,8 @@ import Splash from "./components/Splash";
 import SignupFormPage from "./components/SignUpForm";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import Sidebar from "./components/Sidebar";
+import NotesBrowser from "./components/Notes/NotesBrowser";
 
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
@@ -17,7 +19,8 @@ function App() {
 
 	return (
 		<>
-			<Navigation isLoaded={isLoaded} />
+			{!sessionUser && <Navigation isLoaded={isLoaded} />}
+			{sessionUser && <Sidebar />}
 			{isLoaded && (
 				<Switch>
 					<Route exact path="/">
@@ -28,6 +31,9 @@ function App() {
 					</Route>
 					<Route path="/signup">
 						<SignupFormPage />
+					</Route>
+					<Route path="/notes">
+						<NotesBrowser />
 					</Route>
 				</Switch>
 			)}
