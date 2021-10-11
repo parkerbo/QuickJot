@@ -1,0 +1,55 @@
+.nav-bar{
+    margin: 10px 10% 0 10%;
+    display: flex;
+}
+.nav-bar h1 {
+    margin-top: 10px;
+}
+.nav-bar-links {
+    margin-left: auto;
+}
+#nav-bar-sign-up a {
+    color: #00a82d;
+    font-weight: 500;
+}
+#nav-bar-sign-up a:hover{
+    color: #0BC13C;
+}
+#nav-bar-sign-up {
+    border: 2px solid #00a82d;
+    border-radius: 3px;
+    padding: 5px 10px 5px 10px;
+}
+#nav-bar-sign-up:hover {
+    border: 2px solid #0BC13C;
+}
+#demo-login:hover{
+    color: #0BC13C;
+    cursor: pointer;
+}
+ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    margin: 0;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    padding: 0;
+}
+li {
+    padding: 0 10px 0 10px;
+    color: black;
+}
+li a:hover{
+     color: #0BC13C;
+}
+
+a {
+    text-decoration: none;
+}
+a:hover{
+    color: #0BC13C;
+}
+a:visited {
+    color: black;
+}
