@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
+import quickJotLogo from '../../images/QuickJot_logo.png'
 
 function Navigation({ isLoaded }) {
     const dispatch = useDispatch();
@@ -33,6 +34,9 @@ const demoLogin = (e) => {
 
 	return (
 		<div className="nav-bar">
+			<div id="nav-logo">
+                <img src={quickJotLogo} />
+			</div>
 			<NavLink exact to="/">
 				<h1>QuickJot</h1>
 			</NavLink>
