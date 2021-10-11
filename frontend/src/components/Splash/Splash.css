@@ -1,0 +1,35 @@
+.splash-content{
+    margin: 20px 15% 0 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.splash-content h1 {
+    font-size: 3.5em;
+    margin: 25px 0 0 0;
+}
+.splash-content h2 {
+      display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  font-weight: 100;
+}
+#sign-up-splash{
+    background-color: #00a82d;
+    font-weight: 800;
+    font-size: 1.2em;
+    border-radius: 3px;
+    color: white;
+    padding: 12px 70px 12px 70px;
+}
+#sign-up-splash:hover{
+    background-color: #0BC13C;
+}
+#log-in-splash{
+    text-decoration: underline;
+}
+#log-in-splash:hover{
+    color: #0BC13C;
+}
