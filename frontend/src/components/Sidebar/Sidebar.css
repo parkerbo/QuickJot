@@ -1,0 +1,34 @@
+.sidebar{
+    height: 100%;
+  width: 200px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  color: white;
+  overflow-x: hidden;
+  padding-top: 16px;
+  padding-left: 10px;
+}
+.sidebar div {
+    padding: 10px;
+}
+.sidebar a {
+    color: white;
+}
+.sidebar a:visited{
+    color:white;
+}
+.sidebar h1 {
+    font-size: 1.3em;
+}
+.sidebar h1:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.sidebar h1 i {
+    padding: 5px;
+}

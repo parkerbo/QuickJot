@@ -1,0 +1,36 @@
+#notes-browser{
+    margin-left: 200px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F8F8F8;
+    max-width: 300px;
+    border-right: 1px solid #E6E6E6;
+}
+#notes-browser .selected{
+    background-color: white;
+}
+#notes-browser h2{
+    margin-bottom: 0;
+}
+#notes-browser-title{
+    border-bottom: 1px solid #E6E6E6;
+    padding-left: 15px;
+}
+.note-card h4 {
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#notes-browser a:hover{
+    background-color: white;
+    cursor: pointer;
+}
+.note-card{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+main {
+    display: flex;
+}

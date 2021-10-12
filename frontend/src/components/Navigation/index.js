@@ -35,7 +35,7 @@ const demoLogin = (e) => {
 	return (
 		<div className="nav-bar">
 			<div id="nav-logo">
-                <img src={quickJotLogo} />
+                <img src={quickJotLogo} alt="Quick Jot Logo"/>
 			</div>
 			<NavLink exact to="/">
 				<h1>QuickJot</h1>

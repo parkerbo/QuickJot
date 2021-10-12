@@ -20,7 +20,7 @@ function Splash() {
 				</a>
 			</p>
 			<div id="splash-photo-div">
-				<img src={splashPhoto} id="splash-photo" />
+				<img src={splashPhoto} id="splash-photo" alt="Main Splash"/>
 				<div id="splash-column-text">
 					<h3>WORK ANYWHERE</h3>
 					<p>

@@ -3,9 +3,11 @@ import thunk from "redux-thunk";
 import sessionReducer from "./session";
 import * as sessionActions from "./session";
 import { restoreCSRF, csrfFetch } from "./csrf"
+import notes from "./notes"
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
+  notes,
 });
 
 let enhancer;
