@@ -10,7 +10,7 @@ const NotesBrowser = () => {
 	  const notes = useSelector((state) => {
 			return state.notes.list;
 		});
-console.log(notes.length)
+
 	useEffect(() => {
 		dispatch(getNotes());
 	}, []);

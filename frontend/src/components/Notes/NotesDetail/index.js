@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { saveNote } from "../../../store/notes";
+import { saveNote, getNotes, getOneNote } from "../../../store/notes";
 import { useDispatch } from "react-redux";
 import "./NotesDetail.css"
 
-const NoteDetail = () => {
+const NoteDetail = ({notes}) => {
 	const dispatch = useDispatch();
 	const { noteId } = useParams();
-	const note = useSelector((state) => state.notes[noteId]);
+	const note = notes.find(note => note.id === +noteId)
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("")
 
@@ -20,6 +20,7 @@ const NoteDetail = () => {
 		if (note){
             setTitle(note.title);
             setContent(note.content);
+            dispatch(getOneNote(note.id))
         }
 	}, [note]);
 
@@ -35,7 +36,12 @@ const handleSaveNote = async (e) => {
         content: content
 	};
 
-	await dispatch(saveNote(payload));
+	const newNoteSaved = await dispatch(saveNote(payload));
+
+    if(newNoteSaved){
+        dispatch(getNotes());
+        dispatch(getOneNote(note.id));
+    }
 };
 
 	return (

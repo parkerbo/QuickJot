@@ -4,6 +4,7 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #F8F8F8;
+    min-width: 300px;
     max-width: 300px;
     border-right: 1px solid #E6E6E6;
 }
