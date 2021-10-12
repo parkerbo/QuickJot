@@ -36,18 +36,27 @@ function Sidebar() {
 				<i className="fas fa-user-circle" />
 				{sessionUser.username}
 			</h1>
-            <div>
-			<NavLink to="/">
-				<i className="fas fa-home"></i> Home
-			</NavLink>
-            </div>
-            <div>
-			<NavLink to="/notes">
-				<i className="far fa-sticky-note" style={{paddingRight: 8}}></i>
-				Notes
-			</NavLink>
-            </div>
-			{showMenu && <button onClick={logout}>Log Out</button>}
+			<div>
+				<NavLink to="/">
+					<i className="fas fa-home"></i> Home
+				</NavLink>
+			</div>
+			<div>
+				<NavLink to="/notes">
+					<i className="far fa-sticky-note" style={{ paddingRight: 8 }}></i>
+					Notes
+				</NavLink>
+			</div>
+			<div>
+				<NavLink to="/notes/new">
+					<i className="fas fa-pen" style={{ paddingRight: 8 }}></i>
+					Create New Note
+				</NavLink>
+			</div>
+			<div onClick={logout} id="log-out-div">
+				<i className="fas fa-sign-out-alt" style={{ paddingRight: 8 }}></i>
+				Sign Out
+			</div>
 		</div>
 	);
 }

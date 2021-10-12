@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { saveNote, getNotes, getOneNote } from "../../../store/notes";
 import { useDispatch } from "react-redux";
@@ -22,7 +21,7 @@ const NoteDetail = ({notes}) => {
             setContent(note.content);
             dispatch(getOneNote(note.id))
         }
-	}, [note]);
+	}, [note, dispatch]);
 
 	if (!note) {
 		return null;

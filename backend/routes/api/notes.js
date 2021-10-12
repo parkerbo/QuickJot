@@ -11,7 +11,21 @@ console.log(notes)
 return res.json(notes);
   }),
 );
-
+router.post(
+	"/",
+	asyncHandler(async function (req, res) {
+        const {title, content, userId, notebookId} = req.body;
+		const newNote = await Note.create({
+            title: title,
+            content: content,
+            userId: userId,
+            notebookId: notebookId,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+        });
+		return res.json(newNote);
+	})
+);
 router.get(
 	"/:id",
 	asyncHandler(async function (req, res) {

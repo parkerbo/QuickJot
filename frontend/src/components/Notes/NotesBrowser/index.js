@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Route, NavLink } from "react-router-dom";
 import { getNotes } from "../../../store/notes";
 import NoteDetail from "../NotesDetail";
+import CreateNote from "../CreateNote";
 import "./NotesBrowser.css"
 const NotesBrowser = () => {
 	const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const NotesBrowser = () => {
 
 	useEffect(() => {
 		dispatch(getNotes());
-	}, []);
+	}, [dispatch]);
 
 	if (!notes) {
 		return null;
@@ -48,6 +49,9 @@ const NotesBrowser = () => {
 			<div id="main-note-content">
 				<Route path="/notes/:noteId">
 					<NoteDetail notes={notes}/>
+				</Route>
+				<Route path="/notes/new">
+				<CreateNote />
 				</Route>
 			</div>
 		</main>
