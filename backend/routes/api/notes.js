@@ -19,6 +19,17 @@ router.get(
 		return res.json(note);
 	})
 );
-
+router.put(
+	"/:id",
+	asyncHandler(async function (req, res) {
+        const note = await Note.findByPk(req.params.id);
+        const {title, content} = req.body;
+        const newNote = await note.update({
+            title: title,
+            content: content
+        });
+		return res.json(newNote);
+	})
+);
 
 module.exports = router;
