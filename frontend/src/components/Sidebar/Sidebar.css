@@ -35,3 +35,6 @@
 #log-out-div:hover{
     cursor: pointer;
 }
+#create-new-note{
+    color: #00a82d;
+}

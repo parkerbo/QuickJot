@@ -4,13 +4,27 @@ const { User, Note } = require("../../db/models");
 const router = express.Router();
 
 
-router.get('/', asyncHandler(async (req, res) => {
-    console.log('here')
-    const notes = await Note.findAll();
-console.log(notes)
+router.get('/:userId', asyncHandler(async (req, res) => {
+    const userId = req.params.userId;
+    const notes = await Note.findAll({
+        where: {
+            userId: userId
+        },
+        order: [['updatedAt', 'DESC']]
+    });
 return res.json(notes);
   }),
 );
+
+router.delete(
+	"/:id",
+	asyncHandler(async (req, res) => {
+		const note = await Note.findByPk(req.params.id);
+        await note.destroy();
+		return res.json(note);
+	})
+);
+
 router.post(
 	"/",
 	asyncHandler(async function (req, res) {

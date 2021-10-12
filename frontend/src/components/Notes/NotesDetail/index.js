@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { saveNote, getNotes, getOneNote } from "../../../store/notes";
+import { useParams, useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { saveNote, getNotes, getOneNote, deleteNote } from "../../../store/notes";
 import { useDispatch } from "react-redux";
 import "./NotesDetail.css"
 
 const NoteDetail = ({notes}) => {
 	const dispatch = useDispatch();
+    const history = useHistory();
 	const { noteId } = useParams();
+    const userId = useSelector((state) => state.session.user.id);
 	const note = notes.find(note => note.id === +noteId)
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("")
@@ -38,10 +41,21 @@ const handleSaveNote = async (e) => {
 	const newNoteSaved = await dispatch(saveNote(payload));
 
     if(newNoteSaved){
-        dispatch(getNotes());
+        dispatch(getNotes(userId));
         dispatch(getOneNote(note.id));
     }
 };
+
+const removeNote = async (e) => {
+    e.preventDefault();
+
+    const oldNote = await dispatch(deleteNote(note.id));
+
+    if (oldNote){
+        dispatch(getNotes(userId));
+        history.push(`/notes/`);
+    }
+}
 
 	return (
 		<form className="note-detail" onSubmit={handleSaveNote}>
@@ -64,6 +78,7 @@ const handleSaveNote = async (e) => {
 			</div>
 			<div id="note-form-buttons">
 				<button type="submit">Save Note</button>
+                <button onClick={removeNote}>Delete Note</button>
 			</div>
 		</form>
 	);

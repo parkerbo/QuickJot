@@ -8,13 +8,14 @@ import CreateNote from "../CreateNote";
 import "./NotesBrowser.css"
 const NotesBrowser = () => {
 	const dispatch = useDispatch();
+	 const userId = useSelector((state) => state.session.user.id);
 	  const notes = useSelector((state) => {
 			return state.notes.list;
 		});
 
 	useEffect(() => {
-		dispatch(getNotes());
-	}, [dispatch]);
+		dispatch(getNotes(userId));
+	}, [dispatch, userId]);
 
 	if (!notes) {
 		return null;

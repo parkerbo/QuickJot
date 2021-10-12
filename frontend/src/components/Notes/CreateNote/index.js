@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 const CreateNote = () => {
 	const dispatch = useDispatch();
-      const history = useHistory();
+    const history = useHistory();
 	const [title, setTitle] = useState("");
 	const [content, setContent] = useState("");
     const userId = useSelector((state) => state.session.user.id);
@@ -28,7 +28,7 @@ const CreateNote = () => {
 		const newNote = await dispatch(createNote(payload));
 
 		if (newNote) {
-			dispatch(getNotes());
+			dispatch(getNotes(userId));
 			dispatch(getOneNote(newNote.id));
             history.push(`/notes/${newNote.id}`);
 		}
