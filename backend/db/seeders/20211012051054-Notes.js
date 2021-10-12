@@ -1,6 +1,4 @@
 "use strict";
-const faker = require("faker");
-const bcrypt = require("bcryptjs");
 
 module.exports = {
 	up: (queryInterface, Sequelize) => {
@@ -13,18 +11,24 @@ module.exports = {
 						"This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test ",
 					userId: 1,
 					notebookId: 1,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 				},
 				{
 					title: "Ways to pretend you know what you're doing",
 					content: "GL lol",
 					userId: 1,
 					notebookId: 1,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 				},
 				{
 					title: "This is a TEST",
 					content: "This is the third note in the database",
 					userId: 1,
 					notebookId: 1,
+					createdAt: new Date(),
+					updatedAt: new Date(),
 				},
 			],
 			{}
@@ -32,13 +36,6 @@ module.exports = {
 	},
 
 	down: (queryInterface, Sequelize) => {
-		const Op = Sequelize.Op;
-		return queryInterface.bulkDelete(
-			"Notes",
-			{
-				username: { [Op.in]: ["DemoDillon", "FakeUser1", "FakeUser2"] },
-			},
-			{}
-		);
+		return queryInterface.bulkDelete("Notes", null, {});
 	},
 };
