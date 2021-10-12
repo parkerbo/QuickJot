@@ -54,7 +54,11 @@ const CreateNote = () => {
 				/>
 			</div>
 			<div id="note-form-buttons">
-				<button type="submit">Save Note</button>
+				<div id="save-note-button-div">
+					<button type="submit" id="save-note-button">
+						Save Note
+					</button>
+				</div>
 			</div>
 		</form>
 	);

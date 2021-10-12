@@ -42,3 +42,45 @@ grid-area: note-buttons;
 display: flex;
 justify-content: flex-end;
 }
+#save-note-button{
+    background-color: #00a82d;
+    border: transparent;
+    color: white;
+    font-size: 13px;
+    border-radius: 3px;
+    height: 35px;
+    padding: 10px 10px 10px 10px;
+}
+#delete-note-button{
+    background-color: rgb(189, 50, 50);
+    border: transparent;
+    color: white;
+    font-size: 13px;
+    border-radius: 3px;
+    height: 35px;
+    padding: 10px 10px 10px 10px;
+}
+#save-note-button-div{
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 5px;
+}
+#delete-note-button-div{
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 5px;
+}
+ #save-note-button:hover{
+     cursor: pointer;
+    background-color: #0BC13C;
+ }
+ #delete-note-button:hover{
+     cursor: pointer;
+    background-color: red;
+ }

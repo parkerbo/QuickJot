@@ -77,8 +77,12 @@ const removeNote = async (e) => {
 				/>
 			</div>
 			<div id="note-form-buttons">
-				<button type="submit">Save Note</button>
-                <button onClick={removeNote}>Delete Note</button>
+                <div id="save-note-button-div">
+				<button type="submit" id="save-note-button">Save Note</button>
+                </div>
+                <div id="delete-note-button-div">
+                <button onClick={removeNote} id="delete-note-button">Delete Note</button>
+                </div>
 			</div>
 		</form>
 	);

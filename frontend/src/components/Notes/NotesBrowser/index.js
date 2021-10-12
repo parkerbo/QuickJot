@@ -38,10 +38,10 @@ const NotesBrowser = () => {
 							to={`/notes/${note.id}`}
 							activeClassName="selected"
 						>
-							{" "}
 							<div className="note-card">
 								<h3>{note.title}</h3>
 								<h4>{note.content}</h4>
+								<h5>{note.updatedAt}</h5>
 							</div>
 						</NavLink>
 					);
