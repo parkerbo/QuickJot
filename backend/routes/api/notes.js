@@ -12,5 +12,13 @@ return res.json(notes);
   }),
 );
 
+router.get(
+	"/:id",
+	asyncHandler(async function (req, res) {
+		const note = await Note.findByPk(req.params.id);
+		return res.json(note);
+	})
+);
+
 
 module.exports = router;

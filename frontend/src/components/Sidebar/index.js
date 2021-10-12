@@ -34,12 +34,20 @@ function Sidebar() {
 		<div className="sidebar">
 			<h1 onClick={openMenu}>
 				<i className="fas fa-user-circle" />
-                {sessionUser.username}
+				{sessionUser.username}
 			</h1>
-            <NavLink to='/notes'><h4>New Note</h4></NavLink>
-			{showMenu && (
-						<button onClick={logout}>Log Out</button>
-			)}
+            <div>
+			<NavLink to="/">
+				<i className="fas fa-home"></i> Home
+			</NavLink>
+            </div>
+            <div>
+			<NavLink to="/notes">
+				<i className="far fa-sticky-note" style={{paddingRight: 8}}></i>
+				Notes
+			</NavLink>
+            </div>
+			{showMenu && <button onClick={logout}>Log Out</button>}
 		</div>
 	);
 }
