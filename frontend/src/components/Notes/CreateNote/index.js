@@ -4,7 +4,7 @@ import { createNote, getNotes, getOneNote } from "../../../store/notes";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-const CreateNote = () => {
+const CreateNote = ({notebooks}) => {
 	const dispatch = useDispatch();
     const history = useHistory();
 	const [title, setTitle] = useState("");
@@ -13,6 +13,11 @@ const CreateNote = () => {
 
 	const updateTitle = (e) => setTitle(e.target.value);
 	const updateContent = (e) => setContent(e.target.value);
+    const updatecNotebook = (e) => setcNotebook(e.target.value);
+    const defaultNotebook = notebooks.find((notebook) => notebook.title === "First Notebook")
+
+    const [cNotebook, setcNotebook] = useState(defaultNotebook.id);
+
 
 	const handleSaveNote = async (e) => {
 		e.preventDefault();
@@ -21,10 +26,9 @@ const CreateNote = () => {
 			title: title,
 			content: content,
             userId: userId,
-            notebookId: 1,
+            notebookId: cNotebook,
 
 		};
-
 		const newNote = await dispatch(createNote(payload));
 
 		if (newNote) {
@@ -53,6 +57,12 @@ const CreateNote = () => {
 					onChange={updateContent}
 				/>
 			</div>
+            <div id="note-form-notebooks">
+            <select onChange={updatecNotebook} >
+                {notebooks.map(notebook =>
+                    <option key={notebook.id} value={notebook.id}>{notebook.title}</option>)}
+            </select>
+            </div>
 			<div id="note-form-buttons">
 				<div id="save-note-button-div">
 					<button type="submit" id="save-note-button">

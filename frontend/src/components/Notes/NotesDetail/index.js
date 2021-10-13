@@ -12,7 +12,7 @@ const NoteDetail = ({notes}) => {
     const userId = useSelector((state) => state.session.user.id);
 	const note = notes.find(note => note.id === +noteId)
     const [title, setTitle] = useState("");
-    const [content, setContent] = useState("")
+    const [content, setContent] = useState("");
 
 
     const updateTitle = (e) => setTitle(e.target.value);
