@@ -77,6 +77,16 @@ export const deleteNote = (noteId) => async (dispatch) => {
 		return oldNote;
 	}
 };
+
+export const getNotebookNotes = (notebookId, userId) => async (dispatch) => {
+	const response = await fetch(`/api/notebooks/${notebookId}/notes/${userId}`);
+
+	if (response.ok) {
+		const allNotebooksList = await response.json();
+		dispatch(load(allNotebooksList));
+	}
+};
+
 const initialState = {
 	list: [],
 };

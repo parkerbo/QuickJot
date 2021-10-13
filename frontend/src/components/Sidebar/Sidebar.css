@@ -38,3 +38,6 @@
 #create-new-note{
     color: #00a82d;
 }
+#toggle-notebooks:hover {
+    cursor: pointer;
+}
