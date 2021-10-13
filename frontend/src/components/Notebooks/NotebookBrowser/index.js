@@ -20,7 +20,9 @@ const NotebookBrowser = () => {
 	useEffect(() => {
 		dispatch(getNotebookNotes(notebookId, userId));
         dispatch(getNotebooks(userId));
+		if(notebook){
 		setNotebookTitle(notebook.title)
+		}
 	}, [dispatch, notebookId, userId]);
 
 	if (!notes) {
