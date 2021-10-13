@@ -8,7 +8,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Sidebar from "./components/Sidebar";
 import NotesBrowser from "./components/Notes/NotesBrowser";
-
+import NotebookBrowser from "./components/Notebooks/NotebookBrowser";
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
@@ -35,6 +35,9 @@ function App() {
 					<Route path="/notes">
 						<NotesBrowser />
 					</Route>
+          <Route path="/notebooks/:notebookId">
+          <NotebookBrowser />
+          </Route>
 				</Switch>
 			)}
 		</>

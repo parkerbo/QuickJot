@@ -4,10 +4,12 @@ import sessionReducer from "./session";
 import * as sessionActions from "./session";
 import { restoreCSRF, csrfFetch } from "./csrf"
 import notes from "./notes"
+import notebooks from "./notebooks"
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
   notes,
+  notebooks,
 });
 
 let enhancer;
