@@ -13,7 +13,7 @@
 	padding-top: 16px;
 	padding-left: 10px;
 }
-.sidebar div:not(.input-field) {
+#side-bar-link {
 	padding: 8px;
 }
 .side-bar-selected {

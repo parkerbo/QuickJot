@@ -6,25 +6,25 @@ module.exports = {
 			"Notes",
 			[
 				{
-					title: "The Butterfly Effect",
+					title: "Trip to San Francisco",
+					content: "",
+					userId: 1,
+					notebookId: 2,
+					createdAt: new Date(),
+					updatedAt: new Date(),
+				},
+				{
+					title: "Reminders",
 					content:
-						"This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test ",
+						"1. Call mom 2. Take out trash 3. Set up new cell phone plan",
 					userId: 1,
 					notebookId: 1,
 					createdAt: new Date(),
 					updatedAt: new Date(),
 				},
 				{
-					title: "Ways to pretend you know what you're doing",
-					content: "GL lol",
-					userId: 1,
-					notebookId: 1,
-					createdAt: new Date(),
-					updatedAt: new Date(),
-				},
-				{
-					title: "This is a TEST",
-					content: "This is the third note in the database",
+					title: "Apartment Needs",
+					content: "Microwave coffee maker laundry and dish detergent soap towels paper towels shampoo stand futon/couch groceries night stand lamp dresser",
 					userId: 1,
 					notebookId: 1,
 					createdAt: new Date(),

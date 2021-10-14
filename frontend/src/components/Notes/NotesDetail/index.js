@@ -94,18 +94,28 @@ const removeNote = async (e) => {
 				/>
 			</div>
 			<div id="note-form-notebooks">
-            <select onChange={updatecNotebook} value={cNotebook}>
-                {notebooks.map(notebook =>
-                    <option key={notebook.id} value={notebook.id}>{notebook.title}</option>)}
-            </select>
+				<div id="notebook-dropdown">
+					<i className="fas fa-book" />
+					<select onChange={updatecNotebook} value={cNotebook}>
+						{notebooks.map((notebook) => (
+							<option key={notebook.id} value={notebook.id}>
+								{notebook.title}
+							</option>
+						))}
+					</select>
+				</div>
 			</div>
 			<div id="note-form-buttons">
-                <div id="save-note-button-div">
-				<button type="submit" id="save-note-button">Save Note</button>
-                </div>
-                <div id="delete-note-button-div">
-                <button onClick={removeNote} id="delete-note-button">Delete Note</button>
-                </div>
+				<div id="save-note-button-div">
+					<button type="submit" id="save-note-button">
+						Save Note
+					</button>
+				</div>
+				<div id="delete-note-button-div">
+					<button onClick={removeNote} id="delete-note-button">
+						Delete Note
+					</button>
+				</div>
 			</div>
 		</form>
 	);

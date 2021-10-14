@@ -18,13 +18,15 @@
   border-radius: 4px;
   transition: all 0.3s ease-in-out;
   margin-top:-200px;
+  padding: 15px;
 }
 
 
 
-.modal-header,
-.modal-footer {
+.modal-header{
 margin:0;
+padding-bottom: 5px;
+font-size: 18px;
 }
 
 .modal-title {
@@ -34,4 +36,93 @@ margin:0;
 .modal-body {
 margin:0;
 padding:0;
+}
+.modal-body h5{
+  color: #737373;
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+.modal-body label{
+  display: block;
+}
+.modal-body input {
+  height: 35px;
+  width: 100%;
+}
+#modal-buttons{
+  border-top: 1px solid #D9D9D9;
+  margin-top: 15px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#modal-cancel{
+  background-color: white;
+  border: 1px solid #737373;
+  border-radius: 5px;
+  height: 36px;
+  width: 70px;
+  font-size: 15px;
+  color: #737373;
+  margin-right: 10px;
+}
+#modal-cancel:hover{
+  color: #4d4d4d;
+  background-color: #EFEFEF;
+  border: 1px solid #4d4d4d;
+  cursor: pointer;
+}
+
+#modal-create{
+  background-color: #04A72E;
+  color: white;
+  border: 1px transparent;
+  border-radius: 5px;
+  height: 36px;
+  width: 70px;
+  font-size: 15px;
+}
+#modal-create:disabled{
+  background-color: #CCCCCC;
+}
+#modal-create:disabled:hover{
+  pointer-events: none;
+}
+#modal-create:hover{
+  background-color: #0BC13C;
+  cursor: pointer;
+}
+#modal-edit{
+  background-color: #04A72E;
+  color: white;
+  border: 1px transparent;
+  border-radius: 5px;
+  height: 36px;
+  width: 70px;
+  font-size: 15px;
+  margin-right: auto;
+}
+#modal-edit:disabled{
+  background-color: #CCCCCC;
+}
+#modal-edit:disabled:hover{
+  pointer-events: none;
+}
+#modal-edit:hover{
+  background-color: #0BC13C;
+  cursor: pointer;
+}
+#modal-delete{
+  background-color: red;
+  color: white;
+  border: 1px transparent;
+  border-radius: 5px;
+  height: 36px;
+  width: 70px;
+  font-size: 15px;
+}
+#modal-delete:hover{
+  background-color: rgb(237, 57, 57);
+  cursor: pointer;
 }
