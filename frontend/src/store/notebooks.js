@@ -1,5 +1,6 @@
 import { csrfFetch } from "./csrf";
 const LOAD = "notebooks/LOAD";
+const LOAD_NOTEBOOK = "notebooks/LOAD_NOTEBOOK";
 const ADD_ONE = "notebooks/ADD_ONE";
 const REMOVE = "notebooks/REMOVE";
 
@@ -7,6 +8,11 @@ const load = (list) => ({
 	type: LOAD,
 	list,
 });
+const loadCurrentNotebook = (currentNotebook) => ({
+	type: LOAD_NOTEBOOK,
+	currentNotebook,
+});
+
 
 const addOneNotebook = (notebook) => ({
 	type: ADD_ONE,
@@ -26,23 +32,44 @@ export const getNotebooks = (userId) => async (dispatch) => {
 		dispatch(load(allNotebooksList));
 	}
 };
+export const getCurrentNotebook = (notebookId) => async (dispatch) => {
+	const response = await fetch(`/api/notebooks/current/${notebookId}`);
 
+	if (response.ok) {
+		const currentNotebook = await response.json();
+		dispatch(loadCurrentNotebook(currentNotebook));
+	}
+};
+export const createNotebook = (notebookDetails) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notebooks/`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(notebookDetails),
+	});
+	if (response.ok) {
+		const newNotebook = await response.json();
+		dispatch(addOneNotebook(newNotebook));
+		return newNotebook;
+	}
+};
 
-// export const saveNote = (noteDetails) => async (dispatch) => {
-// 	const response = await csrfFetch(`/api/notes/${noteDetails.noteId}`, {
-// 		method: "PUT",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify(noteDetails),
-// 	});
+export const editNotebook = (notebookDetails) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notebooks/${notebookDetails.notebookId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(notebookDetails),
+	});
 
-// 	if (response.ok) {
-// 		const newNote = await response.json();
-// 		dispatch(addOneNote(newNote));
-// 		return newNote;
-// 	}
-// };
+	if (response.ok) {
+		const newNotebook = await response.json();
+		dispatch(addOneNotebook(newNotebook));
+		return newNotebook;
+	}
+};
 
 // export const getOneNote = (id) => async (dispatch) => {
 // 	const response = await fetch(`/api/notes/${id}`);
@@ -53,20 +80,6 @@ export const getNotebooks = (userId) => async (dispatch) => {
 // 	}
 // };
 
-// export const createNote = (noteDetails) => async (dispatch) => {
-// 	const response = await csrfFetch(`/api/notes/`, {
-// 		method: "POST",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify(noteDetails),
-// 	});
-// 	if (response.ok) {
-// 		const newNote = await response.json();
-// 		dispatch(addOneNote(newNote));
-// 		return newNote;
-// 	}
-// };
 
 // export const deleteNote = (noteId) => async (dispatch) => {
 // 	const response = await csrfFetch(`/api/notes/${noteId}`, {
@@ -80,6 +93,7 @@ export const getNotebooks = (userId) => async (dispatch) => {
 // };
 const initialState = {
 	list: [],
+	currentNotebook: []
 };
 const notebooksReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -93,6 +107,13 @@ const notebooksReducer = (state = initialState, action) => {
 				...allNotebooks,
 				...state,
 				list: action.list,
+			};
+		}
+		case LOAD_NOTEBOOK: {
+			const currentNotebook = action.currentNotebook;
+			return {
+				...state,
+				currentNotebook: currentNotebook
 			};
 		}
 		case REMOVE: {

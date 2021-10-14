@@ -5,7 +5,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import './index.css';
 import App from './App';
 import configureStore from './store';
-
+import ModalProvider from './context/ModalContext';
 const store = configureStore();
 
 if (process.env.NODE_ENV !== "production") {
@@ -15,9 +15,11 @@ if (process.env.NODE_ENV !== "production") {
 function Root() {
   return (
     <ReduxProvider store={store}>
+      <ModalProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </ModalProvider>
     </ReduxProvider>
   );
 }

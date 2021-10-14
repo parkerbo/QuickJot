@@ -51,10 +51,11 @@ router.put(
 	"/:id",
 	asyncHandler(async function (req, res) {
         const note = await Note.findByPk(req.params.id);
-        const {title, content} = req.body;
+        const {title, content, notebookId} = req.body;
         const newNote = await note.update({
             title: title,
-            content: content
+            content: content,
+            notebookId: notebookId
         });
 		return res.json(newNote);
 	})

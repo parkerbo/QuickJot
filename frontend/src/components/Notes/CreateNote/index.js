@@ -16,8 +16,12 @@ const CreateNote = ({notebooks}) => {
     const updatecNotebook = (e) => setcNotebook(e.target.value);
     const defaultNotebook = notebooks.find((notebook) => notebook.title === "First Notebook")
 
-    const [cNotebook, setcNotebook] = useState(defaultNotebook.id);
-
+    const [cNotebook, setcNotebook] = useState("");
+    useEffect(() => {
+        if(defaultNotebook){
+            setcNotebook(defaultNotebook.id)
+        }
+    }, [defaultNotebook])
 
 	const handleSaveNote = async (e) => {
 		e.preventDefault();

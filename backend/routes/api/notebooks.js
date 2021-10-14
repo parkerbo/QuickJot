@@ -29,8 +29,43 @@ router.get(
 
 			},
 			order: [["updatedAt", "DESC"]],
+			include: Notebook
 		});
 		return res.json(notes);
+	})
+);
+router.get(
+	"/current/:notebookId",
+	asyncHandler(async (req, res) => {
+		const notebookId = req.params.notebookId;
+		const currentNotebook = await Notebook.findByPk(notebookId);
+		return res.json(currentNotebook);
+	})
+);
+
+router.post(
+	"/",
+	asyncHandler(async function (req, res) {
+		const { title, userId } = req.body;
+		const newNotebook = await Notebook.create({
+			title: title,
+			userId: userId,
+			createdAt: new Date(),
+			updatedAt: new Date(),
+		});
+		return res.json(newNotebook);
+	})
+);
+
+router.put(
+	"/:id",
+	asyncHandler(async function (req, res) {
+		const notebook = await Notebook.findByPk(req.params.id);
+		const { title } = req.body;
+		const newNotebook = await notebook.update({
+			title: title,
+		});
+		return res.json(newNotebook);
 	})
 );
 
