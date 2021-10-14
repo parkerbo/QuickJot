@@ -62,7 +62,7 @@ const CreateNote = ({notebooks}) => {
 				/>
 			</div>
             <div id="note-form-notebooks">
-            <select onChange={updatecNotebook} >
+            <select onChange={updatecNotebook} value={cNotebook}>
                 {notebooks.map(notebook =>
                     <option key={notebook.id} value={notebook.id}>{notebook.title}</option>)}
             </select>

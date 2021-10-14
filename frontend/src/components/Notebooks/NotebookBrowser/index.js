@@ -1,13 +1,15 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useParams, useHistory } from "react-router-dom";
+import { Route, NavLink, useParams, useHistory } from "react-router-dom";
 import { getNotebookNotes } from "../../../store/notes";
 import Modal from "../../Modal";
+import NoteDetail from "../../Notes/NotesDetail";
+import CreateNote from "../../Notes/CreateNote";
 import { useModal } from "../../../context/ModalContext";
 import { getNotebooks, getCurrentNotebook, editNotebook, deleteNotebook } from "../../../store/notebooks";
 
-const NotebookBrowser = ({notebooks, isLoaded}) => {
+const NotebookBrowser = () => {
     const {notebookId} = useParams();
 	const dispatch = useDispatch();
 	const history = useHistory();
@@ -15,6 +17,9 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 	const userId = useSelector((state) => state.session.user.id);
 	const notes = useSelector((state) => {
 		return state.notes.list;
+	});
+	const notebooks = useSelector((state) => {
+		return state.notebooks.list;
 	});
 	const currentNotebook = useSelector((state) => {
 		return state.notebooks.currentNotebook
@@ -31,7 +36,7 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 		setShowEditModal(true);
 	};
 	const [notebookTitle, setNotebookTitle] = useState("");
-	if (!notes && !notebooks) {
+	if (!notes ) {
 		return null;
 	}
 	const handleEditNotebook = async (e) => {
@@ -69,7 +74,7 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 			<div id="notes-browser">
 				<div id="notes-browser-title">
 					<h2>
-						<i className="fas fa-sticky-note" style={{ paddingRight: 10 }}></i>
+						<i className="fas fa-book-open" style={{ paddingRight: 10 }}></i>
 						{currentNotebook.title}
 					</h2>
 					<span>{notes.length} notes</span>
@@ -84,14 +89,17 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 						onClose={() => setShowEditModal(false)}
 						title="Edit Notebook"
 					>
-						<h5 style={{ margin: 0, fontWeight: 0}}>
-							Edit your notebook name, or delete it. <strong>Deleting a notebook will delete all associated notes</strong>
+						<h5 style={{ margin: 0, fontWeight: 0 }}>
+							Edit your notebook name, or delete it.{" "}
+							<strong>
+								Deleting a notebook will delete all associated notes
+							</strong>
 						</h5>
 						<form onSubmit={handleEditNotebook}>
 							<input
 								type="text"
 								placeholder={currentNotebook.title}
-								onChange={e => setNotebookTitle(e.target.value)}
+								onChange={(e) => setNotebookTitle(e.target.value)}
 								required
 								value={notebookTitle}
 							/>
@@ -107,7 +115,7 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 					return (
 						<NavLink
 							key={note.id}
-							to={`/notes/${note.id}`}
+							to={`/notebooks/${currentNotebook.id}/notes/${note.id}`}
 							activeClassName="selected"
 						>
 							<div className="note-card">
@@ -120,12 +128,12 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 				})}
 			</div>
 			<div id="main-note-content">
-				{/* <Route path="/notes/:noteId">
-					<NoteDetail notes={notes} />
+				<Route path="/notebooks/:notebookId/notes/:noteId">
+					<NoteDetail notes={notes} notebooks={notebooks} />
 				</Route>
-				<Route path="/notes/new">
+				<Route path="/notebooks/:notebookId/notes/new">
 					<CreateNote />
-				</Route> */}
+				</Route>
 			</div>
 		</main>
 	);

@@ -1,43 +1,78 @@
-.sidebar{
-    height: 100%;
-  width: 200px;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  color: white;
-  overflow-x: hidden;
-  padding-top: 16px;
-  padding-left: 10px;
+.sidebar {
+	height: 100%;
+	width: 240px;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #111;
+	color: white;
+	overflow-x: hidden;
+	padding-top: 16px;
+	padding-left: 10px;
 }
 .sidebar div {
-    padding: 10px;
+	padding: 8px;
+}
+.side-bar-selected {
+	border-right: 6px solid #00a82d;
 }
 .sidebar a {
-    color: white;
+	color: white;
 }
-.sidebar a:visited{
-    color:white;
+.sidebar a:not(#notebooks-container a):hover {
+	border-right: 6px solid #00a82d;
+}
+#notebooks-container span:hover {
+	border-right: 3px solid #00a82d;
+}
+.sidebar a:visited {
+	color: white;
 }
 .sidebar h1 {
-    font-size: 1.3em;
+	font-size: 1.3em;
 }
-.sidebar h1:hover{
-    text-decoration: underline;
-    cursor: pointer;
+.sidebar h1:hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 .sidebar h1 i {
-    padding: 5px;
+	padding: 5px;
 }
-#log-out-div:hover{
-    cursor: pointer;
+#log-out-div:hover {
+	cursor: pointer;
 }
-#create-new-note{
-    color: #00a82d;
+#create-new-note {
+	color: #00a82d;
 }
 #toggle-notebooks:hover {
-    cursor: pointer;
+	cursor: pointer;
+}
+.side-bar-search i {
+	position: absolute;
+}
+
+.side-bar-search {
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.icon {
+	padding: 10px;
+	min-width: 40px;
+}
+
+.input-field {
+	width: 93%;
+	padding: 10px 10px 10px 35px;
+    background-color: #404040;
+    border: transparent;
+    color: #A6A6A6;
+    font-size: 15px;
+    border-radius: 20px;
+}
+.input-field::placeholder{
+    color: #A6A6A6;
 }
