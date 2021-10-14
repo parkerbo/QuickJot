@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
+import { getNotes } from "../../store/notes";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
+import Search from "../Search";
 import { useModal } from "../../context/ModalContext";
 import "./Sidebar.css";
 
@@ -14,10 +16,15 @@ function Sidebar() {
 	const notebooks = useSelector((state) => {
 		return state.notebooks.list;
 	});
+	const notes = useSelector((state) => {
+		return state.notes.list;
+	});
 	const dispatch = useDispatch();
 	let { showModal, setShowModal } = useModal();
+	const [showSearch, setShowSearch] = useState(false);
 	useEffect(() => {
 		dispatch(getNotebooks(userId));
+		dispatch(getNotes(userId))
 	}, [dispatch, userId]);
 
 	const logout = (e) => {
@@ -87,6 +94,7 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
+			<Search show={showSearch} onClose={() => setShowSearch(false)} notes={notes} />
 			<Modal
 				show={showModal}
 				onClose={() => setShowModal(false)}
@@ -109,13 +117,15 @@ function Sidebar() {
 					</div>
 				</form>
 			</Modal>
-			<h1 style={{marginLeft: 10}}>
-				<i className="fas fa-user-circle" style={{paddingRight: 10}}/>
+			<h1 style={{ marginLeft: 10 }}>
+				<i className="fas fa-user-circle" style={{ paddingRight: 10 }} />
 				{sessionUser.username}
 			</h1>
-			<div className="side-bar-search">
+			<div className="side-bar-search" onClick={() => setShowSearch(true)}>
 				<i className="fas fa-search icon"></i>
-				<input type="text" placeholder="Search" className="input-field" />
+				<div className="input-field">
+					<span style={{ marginLeft: 35, fontSize: 17 }}>Search</span>
+				</div>
 			</div>
 			<NavLink to="/notes/new" id="create-new-note">
 				<div>
