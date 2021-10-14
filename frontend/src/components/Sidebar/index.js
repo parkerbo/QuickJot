@@ -22,15 +22,15 @@ function Sidebar() {
 	const dispatch = useDispatch();
 	let { showModal, setShowModal } = useModal();
 	const [showSearch, setShowSearch] = useState(false);
+	const [notebookName, setNotebookName] = useState("");
 	useEffect(() => {
 		dispatch(getNotebooks(userId));
-		dispatch(getNotes(userId))
-	}, [dispatch, userId]);
+		dispatch(getNotes(userId));
+	}, [dispatch, userId, notebookName]);
 
 	const logout = (e) => {
 		e.preventDefault();
 		dispatch(sessionActions.logout());
-		window.location.href = "/";
 	};
 
 	const toggleModal = (e) => {
@@ -38,7 +38,7 @@ function Sidebar() {
 		e.preventDefault();
 		setShowModal(true);
 	};
-	const [notebookName, setNotebookName] = useState("");
+
 	const handleSaveNotebook = async (e) => {
 		e.preventDefault();
 
@@ -67,7 +67,7 @@ function Sidebar() {
 		};
 
 		return (
-			<span style={{ marginLeft: -5, paddingTop: 10 }} id="toggle-notebooks">
+			<span style={{ marginLeft: -5, paddingTop: 3, paddingBottom:10 }} id="toggle-notebooks">
 				<span onClick={toggleNotebooks}>
 					<i
 						className={`fas fa-caret-${caret}`}
@@ -76,7 +76,7 @@ function Sidebar() {
 					<i className="fas fa-book" style={{ paddingRight: 8 }}></i>
 					Notebooks
 				</span>
-				<div id="notebooks-container" style={{ marginLeft: 10 }}>
+				<div id="notebooks-container side-bar-link" style={{ marginLeft: 10 }}>
 					{isOpen ? children : null}
 				</div>
 			</span>
@@ -94,7 +94,12 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
-			<Search show={showSearch} onClose={() => setShowSearch(false)} notes={notes} />
+			<Search
+				show={showSearch}
+				onClose={() => setShowSearch(false)}
+				notes={notes}
+				notebooks={notebooks}
+			/>
 			<Modal
 				show={showModal}
 				onClose={() => setShowModal(false)}
@@ -104,16 +109,18 @@ function Sidebar() {
 					Notebooks are useful for grouping notes around a common topic.
 				</h5>
 				<form onSubmit={handleSaveNotebook}>
+					<label for="notebook-name">Name</label>
 					<input
+						name="notebook-name"
 						type="text"
 						placeholder="Notebook name"
 						onChange={(e) => setNotebookName(e.target.value)}
 						required
 						value={notebookName}
 					/>
-					<div>
-						<button onClick={() => setShowModal(false)}>Cancel</button>
-						<button type="submit">Submit</button>
+					<div id="modal-buttons">
+						<button onClick={() => setShowModal(false)} id="modal-cancel">Cancel</button>
+						<button type="submit" id="modal-create" disabled={!(notebookName.length > 0)}>Create</button>
 					</div>
 				</form>
 			</Modal>
@@ -128,22 +135,20 @@ function Sidebar() {
 				</div>
 			</div>
 			<NavLink to="/notes/new" id="create-new-note">
-				<div>
+				<div id="side-bar-link">
 					<i className="fas fa-pen" style={{ paddingRight: 8 }}></i>
 					Create New Note
 				</div>
 			</NavLink>
 
 			<NavLink exact to="/" activeClassName="side-bar-selected">
-				<div>
-					{" "}
+				<div id="side-bar-link">
 					<i className="fas fa-home"></i> Home
 				</div>
 			</NavLink>
 
 			<NavLink to="/notes" activeClassName="side-bar-selected">
-				<div>
-					{" "}
+				<div id="side-bar-link">
 					<i className="far fa-sticky-note" style={{ paddingRight: 8 }}></i>
 					Notes
 				</div>
@@ -158,7 +163,7 @@ function Sidebar() {
 					New Notebook
 				</span>
 			</Notebooks>
-			<div onClick={logout} id="log-out-div">
+			<div onClick={logout} id="log-out-div side-bar-link" >
 				<i className="fas fa-sign-out-alt" style={{ paddingRight: 8 }}></i>
 				Sign Out
 			</div>

@@ -26,6 +26,7 @@
     min-height: 50px;
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
     margin: 0;
     font-size: 15px;
     color: #737373;
@@ -33,6 +34,10 @@
 .note-card h3 {
     margin: 0;
     color:black;
+     max-height: 35px;
+     overflow:hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .note-card h5 {
     margin: 0;

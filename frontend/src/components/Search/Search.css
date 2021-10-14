@@ -1,6 +1,7 @@
 .search-bar-div{
     background-color: white;
     margin-top:70px;
+    margin-left: 4px;
     width: 250px;
     height: fit-content;
     max-height: 500px;
@@ -47,5 +48,14 @@ position: fixed;
 
 .search-results-div{
     margin-top: 10px;
+    width: 100%;
     border-top: 1px solid black;
+}
+#note-result-title{
+    color:black;
+    margin:0;
+    width: 100%;
+}
+#note-result-title:hover{
+    border-right: 3px solid #00a82d;
 }

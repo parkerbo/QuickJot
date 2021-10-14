@@ -43,3 +43,10 @@
 #splash-column-text{
     margin-right: 15px;
 }
+
+.splash-content a {
+    color: black;
+}
+.splash-content a:visited {
+    color: black;
+}

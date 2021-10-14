@@ -84,3 +84,21 @@ justify-content: flex-end;
      cursor: pointer;
     background-color: red;
  }
+#note-form-notebooks{
+    grid-area: note-buttons;
+    display: flex;
+    align-items: flex-end;
+    width: 50%;
+    z-index: 0;
+    margin-bottom: 15px;
+}
+
+#notebook-dropdown select{
+    height: 25px;
+    outline: none;
+    border: 0;
+    border-radius: 5px;
+}
+#notebook-dropdown select:hover{
+    background-color: #A2A2A2;
+}

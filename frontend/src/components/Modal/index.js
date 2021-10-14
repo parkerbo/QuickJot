@@ -12,8 +12,6 @@ if (!props.show) {
 						<h4 className="modal-title">{props.title}</h4>
 					</div>
 					<div className="modal-body">{props.children}</div>
-					<div className="modal-footer">
-					</div>
 				</div>
 			</div>
 	);

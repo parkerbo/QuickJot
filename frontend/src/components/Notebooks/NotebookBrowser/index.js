@@ -52,6 +52,7 @@ const NotebookBrowser = () => {
 		if (newNotebook) {
 			dispatch(getNotebooks(userId));
 			dispatch(getCurrentNotebook(notebookId));
+			setNotebookTitle("")
 			setShowEditModal(false);
 		}
 	};
@@ -87,26 +88,24 @@ const NotebookBrowser = () => {
 					<Modal
 						show={showEditModal}
 						onClose={() => setShowEditModal(false)}
-						title="Edit Notebook"
+						title={`Edit "${currentNotebook.title}"`}
 					>
 						<h5 style={{ margin: 0, fontWeight: 0 }}>
-							Edit your notebook name, or delete it.{" "}
-							<strong>
-								Deleting a notebook will delete all associated notes
-							</strong>
-						</h5>
+							Edit your notebook name, or delete it.<h6 style={{margin:0, fontSize: 13, color: "red"}}>
+								Warning: Deleting a notebook will delete all associated notes.
+						</h6></h5>
 						<form onSubmit={handleEditNotebook}>
 							<input
 								type="text"
-								placeholder={currentNotebook.title}
+								placeholder="Enter New Notebook Name"
 								onChange={(e) => setNotebookTitle(e.target.value)}
 								required
 								value={notebookTitle}
 							/>
-							<div>
-								<button onClick={() => setShowEditModal(false)}>Cancel</button>
-								<button type="submit">Submit</button>
-								<button onClick={removeNotebook}>Delete</button>
+							<div id="modal-buttons">
+								<button onClick={() => setShowEditModal(false)} id="modal-cancel">Cancel</button>
+								<button type="submit" id="modal-edit" disabled={!(notebookTitle.length > 0)}>Edit</button>
+								<button onClick={removeNotebook} id="modal-delete">Delete</button>
 							</div>
 						</form>
 					</Modal>
