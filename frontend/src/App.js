@@ -8,13 +8,20 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Sidebar from "./components/Sidebar";
 import NotesBrowser from "./components/Notes/NotesBrowser";
+import { getNotebooks } from "./store/notebooks";
 import NotebookBrowser from "./components/Notebooks/NotebookBrowser";
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
 	const [isLoaded, setIsLoaded] = useState(false);
+	 const notebooks = useSelector((state) => {
+			return state.notebooks.list;
+		});
 	useEffect(() => {
 		dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+		if(sessionUser){
+		dispatch(getNotebooks(sessionUser.id));
+		}
 	}, [dispatch]);
 
 	return (
@@ -36,7 +43,8 @@ function App() {
 						<NotesBrowser />
 					</Route>
           <Route path="/notebooks/:notebookId">
-          <NotebookBrowser />
+          <NotebookBrowser notebooks={notebooks} />
+
           </Route>
 				</Switch>
 			)}

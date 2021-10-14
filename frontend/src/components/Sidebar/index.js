@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import  { useState, useEffect } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotebooks } from "../../store/notebooks";
+import { getNotebooks, createNotebook } from "../../store/notebooks";
 import * as sessionActions from "../../store/session";
+import Modal from "../Modal";
+import { useModal } from "../../context/ModalContext";
 import "./Sidebar.css";
+
 function Sidebar() {
     const sessionUser = useSelector((state) => state.session.user);
+	const history = useHistory();
     const userId = useSelector((state) => state.session.user.id);
     const notebooks = useSelector((state) => {
 			return state.notebooks.list;
 		});
     const dispatch = useDispatch();
-
+	let {showModal, setShowModal} = useModal();
     useEffect(() => {
         dispatch(getNotebooks(userId));
     }, [dispatch, userId]);
@@ -21,14 +25,42 @@ function Sidebar() {
         dispatch(sessionActions.logout());
         window.location.href = "/";
     };
+
+	const toggleModal = (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		setShowModal(true);
+	}
+	const [notebookName, setNotebookName] = useState("");
+	const handleSaveNotebook = async (e) => {
+		e.preventDefault();
+
+		const payload = {
+			title: notebookName,
+			userId: userId,
+		};
+		const newNotebook = await dispatch(createNotebook(payload));
+
+		if (newNotebook) {
+			 dispatch(getNotebooks(userId));
+			 setShowModal(false);
+			 setNotebookName("");
+			history.push(`/notebooks/${newNotebook.id}`);
+		}
+	};
     const Notebooks = (props) => {
         const [isOpen, setIsOpen] = useState(false);
         const {children} = props;
         const caret = isOpen ? 'down' : 'right';
 
-        const toggleNotebooks = () => {
+        const toggleNotebooks = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
         setIsOpen(!isOpen);
     }
+
+
+
     return (
 			<span style={{marginLeft: -5, paddingTop: 10}} id="toggle-notebooks">
 				<span onClick={toggleNotebooks}>
@@ -40,6 +72,7 @@ function Sidebar() {
 			</span>
 		);
     }
+
     const Notebook = ({notebook}) => {
         return (
             <span style={{fontSize: 15, display: "block"}}>
@@ -53,6 +86,28 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
+			<Modal
+				show={showModal}
+				onClose={() => setShowModal(false)}
+				title="Create new notebook"
+			>
+				<h5 style={{ margin: 0 }}>
+					Notebooks are useful for grouping notes around a common topic.
+				</h5>
+				<form onSubmit={handleSaveNotebook}>
+				<input
+					type="text"
+					placeholder="Notebook name"
+					onChange={(e) => setNotebookName(e.target.value)}
+					required
+					value={notebookName}
+				/>
+				<div>
+					<button onClick={() => setShowModal(false)}>Cancel</button>
+					<button type="submit">Submit</button>
+				</div>
+				</form>
+			</Modal>
 			<h1>
 				<i className="fas fa-user-circle" />
 				{sessionUser.username}
@@ -78,9 +133,9 @@ function Sidebar() {
 				{notebooks.map((notebook) => (
 					<Notebook notebook={notebook} key={notebook.id} />
 				))}
-				<span style={{ fontSize: 15, color: "#00a82d" }}>
+				<span style={{ fontSize: 15, color: "#00a82d" }} onClick={toggleModal}>
 					<i className="fas fa-plus-circle" style={{ paddingRight: 8 }}></i>
-					Create New Notebook
+					New Notebook
 				</span>
 			</Notebooks>
 			<div onClick={logout} id="log-out-div">

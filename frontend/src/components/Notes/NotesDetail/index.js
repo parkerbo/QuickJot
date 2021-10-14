@@ -5,7 +5,7 @@ import { saveNote, getNotes, getOneNote, deleteNote } from "../../../store/notes
 import { useDispatch } from "react-redux";
 import "./NotesDetail.css"
 
-const NoteDetail = ({notes}) => {
+const NoteDetail = ({notes, notebooks}) => {
 	const dispatch = useDispatch();
     const history = useHistory();
 	const { noteId } = useParams();
@@ -13,19 +13,24 @@ const NoteDetail = ({notes}) => {
 	const note = notes.find(note => note.id === +noteId)
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+	const [cNotebook, setcNotebook] = useState("");
+
 
 
     const updateTitle = (e) => setTitle(e.target.value);
     const updateContent = (e) => setContent(e.target.value);
+	const updatecNotebook = (e) => setcNotebook(e.target.value);
+
+
 
 	useEffect(() => {
 		if (note){
             setTitle(note.title);
             setContent(note.content);
-            dispatch(getOneNote(note.id))
+			setcNotebook(note.notebookId)
+            dispatch(getOneNote(note.id));
         }
 	}, [note, dispatch]);
-
 	if (!note) {
 		return null;
 	}
@@ -35,7 +40,8 @@ const handleSaveNote = async (e) => {
 	const payload = {
 		noteId: note.id,
         title: title,
-        content: content
+        content: content,
+		notebookId: cNotebook
 	};
 
 	const newNoteSaved = await dispatch(saveNote(payload));
@@ -75,6 +81,12 @@ const removeNote = async (e) => {
 					value={content}
 					onChange={updateContent}
 				/>
+			</div>
+			<div id="note-form-notebooks">
+            <select onChange={updatecNotebook} value={cNotebook}>
+                {notebooks.map(notebook =>
+                    <option key={notebook.id} value={notebook.id}>{notebook.title}</option>)}
+            </select>
 			</div>
 			<div id="note-form-buttons">
                 <div id="save-note-button-div">

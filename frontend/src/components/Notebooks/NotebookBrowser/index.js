@@ -3,31 +3,52 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
 import { getNotebookNotes } from "../../../store/notes";
-import { getNotebooks } from "../../../store/notebooks";
+import Modal from "../../Modal";
+import { useModal } from "../../../context/ModalContext";
+import { getNotebooks, getCurrentNotebook, editNotebook } from "../../../store/notebooks";
 
-const NotebookBrowser = () => {
+const NotebookBrowser = ({notebooks, isLoaded}) => {
     const {notebookId} = useParams();
 	const dispatch = useDispatch();
+	let { showEditModal, setShowEditModal } = useModal();
 	const userId = useSelector((state) => state.session.user.id);
 	const notes = useSelector((state) => {
 		return state.notes.list;
 	});
-    const notebooks = useSelector((state) => {
-			return state.notebooks.list;
-		});
-    const notebook = notebooks.find((notebook) => notebook.id === +notebookId);
-	const [notebookTitle, setNotebookTitle] = useState("");
+	const currentNotebook = useSelector((state) => {
+		return state.notebooks.currentNotebook
+	})
 	useEffect(() => {
 		dispatch(getNotebookNotes(notebookId, userId));
-        dispatch(getNotebooks(userId));
-		if(notebook){
-		setNotebookTitle(notebook.title)
-		}
+		dispatch(getNotebooks(userId));
+		dispatch(getCurrentNotebook(notebookId));
 	}, [dispatch, notebookId, userId]);
 
-	if (!notes) {
+	const toggleModal = (e) => {
+		e.stopPropagation();
+		e.preventDefault();
+		setShowEditModal(true);
+	};
+	const [notebookTitle, setNotebookTitle] = useState("");
+	if (!notes && !notebooks) {
 		return null;
 	}
+	const handleEditNotebook = async (e) => {
+		e.preventDefault();
+
+		const payload = {
+			notebookId: currentNotebook.id,
+			title: notebookTitle,
+		};
+
+		const newNotebook= await dispatch(editNotebook(payload));
+
+		if (newNotebook) {
+			dispatch(getNotebooks(userId));
+			dispatch(getCurrentNotebook(notebookId));
+			setShowEditModal(false);
+		}
+	};
 
 	return (
 		<main>
@@ -35,9 +56,37 @@ const NotebookBrowser = () => {
 				<div id="notes-browser-title">
 					<h2>
 						<i className="fas fa-sticky-note" style={{ paddingRight: 10 }}></i>
-						{notebookTitle}
+						{currentNotebook.title}
 					</h2>
 					<span>{notes.length} notes</span>
+					<span
+						style={{ float: "right", marginRight: 10 }}
+						onClick={toggleModal}
+					>
+						Edit Notebook
+					</span>
+					<Modal
+						show={showEditModal}
+						onClose={() => setShowEditModal(false)}
+						title="Edit Notebook"
+					>
+						<h5 style={{ margin: 0, fontWeight: 0}}>
+							Edit your notebook name, or delete it. <strong>Deleting a notebook will delete all associated notes</strong>
+						</h5>
+						<form onSubmit={handleEditNotebook}>
+							<input
+								type="text"
+								placeholder={currentNotebook.title}
+								onChange={e => setNotebookTitle(e.target.value)}
+								required
+								value={notebookTitle}
+							/>
+							<div>
+								<button onClick={() => setShowEditModal(false)}>Cancel</button>
+								<button type="submit">Submit</button>
+							</div>
+						</form>
+					</Modal>
 				</div>
 				{notes.map((note) => {
 					return (
