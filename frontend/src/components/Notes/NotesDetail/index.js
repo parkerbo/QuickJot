@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { saveNote, getNotes, getOneNote, deleteNote } from "../../../store/notes";
+import { getNotebookNotes } from "../../../store/notes";
 import { useDispatch } from "react-redux";
 import "./NotesDetail.css"
 
@@ -10,6 +11,7 @@ const NoteDetail = ({notes, notebooks}) => {
     const history = useHistory();
 	const { noteId } = useParams();
     const userId = useSelector((state) => state.session.user.id);
+	const currentNotebook = useSelector((state) => state.notebooks.currentNotebook);
 	const note = notes.find(note => note.id === +noteId)
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -47,7 +49,11 @@ const handleSaveNote = async (e) => {
 	const newNoteSaved = await dispatch(saveNote(payload));
 
     if(newNoteSaved){
+		if(window.location.href.indexOf("notebooks") > -1){
+			dispatch(getNotebookNotes(currentNotebook.id, userId));
+		} else {
         dispatch(getNotes(userId));
+		}
         dispatch(getOneNote(note.id));
     }
 };
@@ -58,8 +64,13 @@ const removeNote = async (e) => {
     const oldNote = await dispatch(deleteNote(note.id));
 
     if (oldNote){
+		if (window.location.href.indexOf("notebooks") > -1) {
+			dispatch(getNotebookNotes(currentNotebook.id, userId));
+			history.push(`/notebooks/${currentNotebook.id}`);
+		} else {
         dispatch(getNotes(userId));
         history.push(`/notes/`);
+		}
     }
 }
 

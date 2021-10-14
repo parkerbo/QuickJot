@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink , useHistory} from "react-router-dom";
 import { getNotes } from "../../../store/notes";
 import { getNotebooks } from "../../../store/notebooks";
 import NoteDetail from "../NotesDetail";
@@ -9,6 +9,7 @@ import CreateNote from "../CreateNote";
 import "./NotesBrowser.css"
 const NotesBrowser = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	 const userId = useSelector((state) => state.session.user.id);
 	  const notes = useSelector((state) => {
 			return state.notes.list;
@@ -24,7 +25,6 @@ const NotesBrowser = () => {
 	if (!notes) {
 		return null;
 	}
-
 	return (
 		<main>
 			<div id="notes-browser">
