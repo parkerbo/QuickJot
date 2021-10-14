@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
+import { getNotes } from "../../store/notes";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
 import Search from "../Search";
@@ -15,11 +16,15 @@ function Sidebar() {
 	const notebooks = useSelector((state) => {
 		return state.notebooks.list;
 	});
+	const notes = useSelector((state) => {
+		return state.notes.list;
+	});
 	const dispatch = useDispatch();
 	let { showModal, setShowModal } = useModal();
 	const [showSearch, setShowSearch] = useState(false);
 	useEffect(() => {
 		dispatch(getNotebooks(userId));
+		dispatch(getNotes(userId))
 	}, [dispatch, userId]);
 
 	const logout = (e) => {
@@ -89,7 +94,7 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
-			<Search show={showSearch} onClose={() => setShowSearch(false)} />
+			<Search show={showSearch} onClose={() => setShowSearch(false)} notes={notes} />
 			<Modal
 				show={showModal}
 				onClose={() => setShowModal(false)}

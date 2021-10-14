@@ -1,12 +1,29 @@
 import "./Search.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState} from "react";
+import { useSelector } from "react-redux";
 const Search = (props) => {
     const ref = useRef();
+    const [searchQuery, setSearchQuery] = useState("a");
+    const queryNotes = (notes, searchQuery) => {
+       if (!searchQuery){
+           return null
+       }
+
+       return props.notes.filter((note) => {
+           const noteTitle = note.title.toLowerCase();
+           return noteTitle.includes(searchQuery);
+       })
+   }
+   const filteredNotes = queryNotes(props.notes, searchQuery);
+   console.log(filteredNotes)
    useEffect(() => {
       if (props.show){
         ref.current.select();
     }
    }, [props])
+
+
+
    if (!props.show) {
 			return null;
 		}
@@ -19,9 +36,14 @@ const Search = (props) => {
 						placeholder="Search"
 						className="search-input-field"
                         ref={ref}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
 					/>
 
-				<div className="search-results-div">Search results go here</div>
+				<div className="search-results-div">{filteredNotes? (<>Notes</>): null}
+                {filteredNotes ? filteredNotes.map(note => {
+                    return <li>{note.title}</li>
+                }): null}</div>
 			</div>
 		</div>
 	);

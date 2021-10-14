@@ -2,6 +2,7 @@
     background-color: white;
     margin-top:70px;
     width: 250px;
+    height: fit-content;
     max-height: 500px;
     z-index: 2;
     box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.2);
@@ -39,7 +40,7 @@ position: fixed;
 	position: absolute;
 }
 .search-input-field::placeholder{
-    color: white;
+    color: rgba(255, 255, 255, 0.728);
     font-family: inherit;
     font-size: 15px;
 }
