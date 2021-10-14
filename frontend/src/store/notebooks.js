@@ -81,16 +81,16 @@ export const editNotebook = (notebookDetails) => async (dispatch) => {
 // };
 
 
-// export const deleteNote = (noteId) => async (dispatch) => {
-// 	const response = await csrfFetch(`/api/notes/${noteId}`, {
-// 		method: "DELETE",
-// 	});
-// 	if (response.ok) {
-// 		const oldNote = await response.json();
-// 		dispatch(remove(oldNote));
-// 		return oldNote;
-// 	}
-// };
+export const deleteNotebook = (notebookId) => async (dispatch) => {
+	const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
+		method: "DELETE",
+	});
+	if (response.ok) {
+		const oldNotebook = await response.json();
+		dispatch(remove(oldNotebook));
+		return oldNotebook;
+	}
+};
 const initialState = {
 	list: [],
 	currentNotebook: []

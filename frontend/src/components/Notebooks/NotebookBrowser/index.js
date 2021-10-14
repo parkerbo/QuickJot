@@ -1,15 +1,16 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import { getNotebookNotes } from "../../../store/notes";
 import Modal from "../../Modal";
 import { useModal } from "../../../context/ModalContext";
-import { getNotebooks, getCurrentNotebook, editNotebook } from "../../../store/notebooks";
+import { getNotebooks, getCurrentNotebook, editNotebook, deleteNotebook } from "../../../store/notebooks";
 
 const NotebookBrowser = ({notebooks, isLoaded}) => {
     const {notebookId} = useParams();
 	const dispatch = useDispatch();
+	const history = useHistory();
 	let { showEditModal, setShowEditModal } = useModal();
 	const userId = useSelector((state) => state.session.user.id);
 	const notes = useSelector((state) => {
@@ -50,6 +51,19 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 		}
 	};
 
+	const removeNotebook = async (e) => {
+		e.preventDefault();
+
+		const oldNotebook = await dispatch(deleteNotebook(currentNotebook.id));
+
+		if (oldNotebook) {
+			dispatch(getNotebooks(userId));
+			setShowEditModal(false);
+			history.push(`/notes/`);
+		}
+	};
+
+
 	return (
 		<main>
 			<div id="notes-browser">
@@ -84,6 +98,7 @@ const NotebookBrowser = ({notebooks, isLoaded}) => {
 							<div>
 								<button onClick={() => setShowEditModal(false)}>Cancel</button>
 								<button type="submit">Submit</button>
+								<button onClick={removeNotebook}>Delete</button>
 							</div>
 						</form>
 					</Modal>
