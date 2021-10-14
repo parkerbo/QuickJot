@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
+import Search from "../Search";
 import { useModal } from "../../context/ModalContext";
 import "./Sidebar.css";
 
@@ -16,6 +17,7 @@ function Sidebar() {
 	});
 	const dispatch = useDispatch();
 	let { showModal, setShowModal } = useModal();
+	const [showSearch, setShowSearch] = useState(false);
 	useEffect(() => {
 		dispatch(getNotebooks(userId));
 	}, [dispatch, userId]);
@@ -87,6 +89,7 @@ function Sidebar() {
 
 	return (
 		<div className="sidebar">
+			<Search show={showSearch} onClose={() => setShowSearch(false)} />
 			<Modal
 				show={showModal}
 				onClose={() => setShowModal(false)}
@@ -109,13 +112,15 @@ function Sidebar() {
 					</div>
 				</form>
 			</Modal>
-			<h1 style={{marginLeft: 10}}>
-				<i className="fas fa-user-circle" style={{paddingRight: 10}}/>
+			<h1 style={{ marginLeft: 10 }}>
+				<i className="fas fa-user-circle" style={{ paddingRight: 10 }} />
 				{sessionUser.username}
 			</h1>
-			<div className="side-bar-search">
+			<div className="side-bar-search" onClick={() => setShowSearch(true)}>
 				<i className="fas fa-search icon"></i>
-				<input type="text" placeholder="Search" className="input-field" />
+				<div className="input-field">
+					<span style={{ marginLeft: 35, fontSize: 17 }}>Search</span>
+				</div>
 			</div>
 			<NavLink to="/notes/new" id="create-new-note">
 				<div>
