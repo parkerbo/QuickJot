@@ -69,4 +69,13 @@ router.put(
 	})
 );
 
+router.delete(
+	"/:id",
+	asyncHandler(async (req, res) => {
+		const notebook = await Notebook.findByPk(req.params.id);
+		await notebook.destroy();
+		return res.json(notebook);
+	})
+);
+
 module.exports = router;
