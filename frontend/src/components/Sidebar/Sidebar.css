@@ -41,7 +41,7 @@
 .sidebar h1 i {
 	padding: 5px;
 }
-#log-out-div:hover {
+.log-out-div:hover {
 	cursor: pointer;
 }
 #create-new-note {

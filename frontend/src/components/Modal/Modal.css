@@ -19,6 +19,7 @@
   transition: all 0.3s ease-in-out;
   margin-top:-200px;
   padding: 15px;
+  z-index: 5;
 }
 
 
