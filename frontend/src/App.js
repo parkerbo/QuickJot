@@ -10,6 +10,8 @@ import Sidebar from "./components/Sidebar";
 import NotesBrowser from "./components/Notes/NotesBrowser";
 import { getNotebooks } from "./store/notebooks";
 import NotebookBrowser from "./components/Notebooks/NotebookBrowser";
+import HomePage from "./components/HomePage";
+
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
@@ -32,6 +34,7 @@ function App() {
 				<Switch>
 					<Route exact path="/">
 						{!sessionUser && <Splash />}
+						{sessionUser && <HomePage />}
 					</Route>
 					<Route path="/login">
 						<LoginFormPage />
