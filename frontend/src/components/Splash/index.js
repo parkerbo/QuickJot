@@ -1,4 +1,5 @@
 import "./Splash.css";
+import { NavLink } from "react-router-dom";
 import splashPhoto from "../../images/splash-page-main-photo.png"
 function Splash() {
 
@@ -10,14 +11,14 @@ function Splash() {
 				schedule all in one place.
 			</h2>
 			<p>
-				<a href="/signup" id="sign-up-splash">
+				<NavLink to="/signup" id="sign-up-splash">
 					Sign up for free
-				</a>
+				</NavLink>
 			</p>
 			<p>
-				<a href="/login" id="log-in-splash">
+				<NavLink to="/login" id="log-in-splash">
 					Already have an account? Log in
-				</a>
+				</NavLink>
 			</p>
 			<div id="splash-photo-div">
 				<img src={splashPhoto} id="splash-photo" alt="Main Splash"/>

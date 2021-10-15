@@ -164,7 +164,7 @@ function Sidebar() {
 					New Notebook
 				</span>
 			</Notebooks>
-			<div onClick={logout} id="log-out-div side-bar-link" >
+			<div onClick={logout} id="side-bar-link" className="log-out-div">
 				<i className="fas fa-sign-out-alt" style={{ paddingRight: 8 }}></i>
 				Sign Out
 			</div>

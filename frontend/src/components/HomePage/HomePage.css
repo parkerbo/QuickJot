@@ -11,7 +11,7 @@
 }
 #home-photo-div img{
     width: 100%;
-    max-height: 500px;
+    max-height: 60vh;
     object-fit: cover;
 }
 
@@ -27,14 +27,14 @@
 }
 #home-page-notes{
     box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
-    width: 650px;
+    width: 48vw;
     height: 360px;
     background-color: white;
     border-radius: 10px;
     border: transparent;
     z-index: 0;
     position: absolute;
-    margin: 250px 0px 0px 50px;
+    margin: 35vh 0px 0px 40px;
     flex:1;
     display: flex;
     flex-direction: column;
@@ -42,7 +42,6 @@
 #note-home-info{
     width: 100%;
     height: fit-content;
-    grid-area: note-home-info;
     margin-top: 10px;
     border-bottom: 2px solid #727272;
 }
@@ -51,13 +50,14 @@
     padding: 30px;
 }
 #recent-notes{
+    flex:1;
     display: flex;
     margin-top: 10px;
     height: 300px;
-    overflow-y: scroll;
+    overflow: hidden;
 }
 #note-card{
-    width: 25%;
+    width: 175px;
     display: flex;
     max-height: 80%;
     flex-direction: column;
@@ -80,5 +80,66 @@
     max-height: 100px;
 }
 #note-card:hover{
+    cursor: pointer;
+}
+#box{
+    display: flex;
+}
+
+#recent-notes:hover{
+    overflow:scroll;
+}
+#note-card-link{
+    background-color: #F8F8F8;
+    width: 175px;
+    display: flex;
+    max-height: 80%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+    padding: 5px;
+    margin: 10px;
+}
+#note-card-link:hover{
+    cursor: pointer;
+}
+
+#new-note-hover:hover{
+    cursor: pointer;
+    color:#04A72E;
+}
+#home-page-notebooks{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+    width: 28vw;
+    height: 360px;
+    background-color: white;
+    border-radius: 10px;
+    border: transparent;
+    z-index: 0;
+    position: absolute;
+    margin: 35vh 0px 0px 53vw;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+#show-home-notebooks{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+#notebook-card{
+    width: 90%;
+    display: flex;
+    max-height: 80%;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
+    padding: 5px;
+    margin: 10px;
+}
+#notebook-card:hover{
     cursor: pointer;
 }

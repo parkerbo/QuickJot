@@ -24,12 +24,13 @@ module.exports = {
 				},
 				{
 					title: "Apartment Needs",
-					content: "Microwave coffee maker laundry and dish detergent soap towels paper towels shampoo stand futon/couch groceries night stand lamp dresser",
+					content:
+						"Microwave coffee maker laundry and dish detergent soap towels paper towels shampoo stand futon/couch groceries night stand lamp dresser",
 					userId: 1,
 					notebookId: 1,
 					createdAt: new Date(),
 					updatedAt: new Date(),
-				},
+				}
 			],
 			{}
 		);
