@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { saveNote, getNotes, getOneNote, deleteNote } from "../../../store/notes";
 import { getNotebookNotes } from "../../../store/notes";
 import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { Autosave, useAutosave } from "react-autosave";
 import "./NotesDetail.css"
 
 const NoteDetail = ({notes, notebooks}) => {
@@ -33,11 +35,9 @@ const NoteDetail = ({notes, notebooks}) => {
             dispatch(getOneNote(note.id));
         }
 	}, [note, dispatch]);
-	if (!note) {
-		return null;
-	}
-const handleSaveNote = async (e) => {
-	e.preventDefault();
+
+const handleSaveNote = useCallback( async (e) => {
+
 
 	const payload = {
 		noteId: note.id,
@@ -56,8 +56,8 @@ const handleSaveNote = async (e) => {
 		}
         dispatch(getOneNote(note.id));
     }
-};
-
+}, [content, title, cNotebook]);
+useAutosave({ data: content, onSave: handleSaveNote });
 const removeNote = async (e) => {
     e.preventDefault();
 
@@ -73,7 +73,9 @@ const removeNote = async (e) => {
 		}
     }
 }
-
+if (!note) {
+	return null;
+}
 	return (
 		<form className="note-detail" onSubmit={handleSaveNote}>
 			<div id="note-form-title">
