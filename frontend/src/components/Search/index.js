@@ -3,7 +3,7 @@ import { useEffect, useRef, useState} from "react";
 import { Link } from "react-router-dom";
 const Search = (props) => {
     const ref = useRef();
-    const [searchQuery, setSearchQuery] = useState("a");
+    const [searchQuery, setSearchQuery] = useState("");
     const queryNotes = (notes, searchQuery) => {
        if (!searchQuery){
            return null
