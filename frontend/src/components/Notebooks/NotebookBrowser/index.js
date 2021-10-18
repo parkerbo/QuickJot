@@ -5,7 +5,6 @@ import { Route, NavLink, useParams, useHistory } from "react-router-dom";
 import { getNotebookNotes } from "../../../store/notes";
 import Modal from "../../Modal";
 import NoteDetail from "../../Notes/NotesDetail";
-import CreateNote from "../../Notes/CreateNote";
 import { useModal } from "../../../context/ModalContext";
 import { getNotebooks, getCurrentNotebook, editNotebook, deleteNotebook } from "../../../store/notebooks";
 
@@ -129,9 +128,6 @@ const NotebookBrowser = () => {
 			<div id="main-note-content">
 				<Route path="/notebooks/:notebookId/notes/:noteId">
 					<NoteDetail notes={notes} notebooks={notebooks} />
-				</Route>
-				<Route path="/notebooks/:notebookId/notes/new">
-					<CreateNote />
 				</Route>
 			</div>
 		</main>
