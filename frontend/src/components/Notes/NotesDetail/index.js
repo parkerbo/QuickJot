@@ -18,7 +18,6 @@ const NoteDetail = ({notes, notebooks}) => {
 	const [cNotebook, setcNotebook] = useState("");
 	const[saveState, setSaveState] = useState("All changes saved");
 
-
     const updateTitle = (e) => {
 		setSaveState("Saving...");
 		setTitle(e.target.value);

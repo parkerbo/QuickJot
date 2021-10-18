@@ -129,6 +129,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+    overflow: scroll;
 }
 #notebook-card{
     width: 90%;

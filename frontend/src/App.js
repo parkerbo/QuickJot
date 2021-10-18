@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import Splash from "./components/Splash";
 import SignupFormPage from "./components/SignUpForm";
@@ -15,6 +15,7 @@ import HomePage from "./components/HomePage";
 function App() {
   const sessionUser = useSelector((state) => state.session.user);
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const [isLoaded, setIsLoaded] = useState(false);
 	 const notebooks = useSelector((state) => {
 			return state.notebooks.list;
@@ -43,10 +44,11 @@ function App() {
 						<SignupFormPage />
 					</Route>
 					<Route path="/notes">
-						<NotesBrowser />
+						{sessionUser ? <NotesBrowser /> : history.push("/")}
 					</Route>
 					<Route path="/notebooks/:notebookId">
-						<NotebookBrowser notebooks={notebooks} />
+						{sessionUser ?<NotebookBrowser notebooks={notebooks} />: history.push("/")}
+
 					</Route>
 				</Switch>
 			)}

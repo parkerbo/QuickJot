@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
-import { getNotes, createNote, getOneNote } from "../../store/notes";
+import { getNotes, createNote, getOneNote, getNotebookNotes } from "../../store/notes";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
 import Search from "../Search";
@@ -37,7 +37,7 @@ function Sidebar() {
 	useEffect(() => {
 		dispatch(getNotebooks(userId));
 		dispatch(getNotes(userId));
-	}, [dispatch, userId, notebookName]);
+	}, [dispatch, userId]);
 
 	const logout = (e) => {
 		e.preventDefault();
@@ -80,6 +80,7 @@ function Sidebar() {
 			dispatch(getNotebooks(userId));
 			setShowModal(false);
 			setNotebookName("");
+			dispatch(getNotebookNotes(newNotebook.id, userId));
 			history.push(`/notebooks/${newNotebook.id}`);
 		}
 	};

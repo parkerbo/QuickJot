@@ -67,7 +67,9 @@ const NotebookBrowser = () => {
 			history.push(`/notes/`);
 		}
 	};
-
+if(currentNotebook.userId !== userId){
+	history.push('/');
+}
 
 	return (
 		<main>
