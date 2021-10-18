@@ -79,7 +79,7 @@ const NotebookBrowser = () => {
 						{currentNotebook.title}
 					</h2>
 					<span>{notes.length} notes</span>
-					<span
+					<span id="edit-notebook-span"
 						style={{ float: "right", marginRight: 10 }}
 						onClick={toggleModal}
 					>

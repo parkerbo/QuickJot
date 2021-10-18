@@ -94,7 +94,6 @@ const notesReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
 			const allNotes = {};
-			console.log(action);
 			action.list.forEach((note) => {
 				allNotes[note.id] = note;
 			});

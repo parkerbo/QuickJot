@@ -26,7 +26,6 @@ const Search = (props) => {
 		};
    const filteredNotebooks = queryNotebooks(props.notebooks, searchQuery);
    const filteredNotes = queryNotes(props.notes, searchQuery);
-   console.log(filteredNotes)
    useEffect(() => {
       if (props.show){
         ref.current.select();

@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import quickJotLogo from "../../images/QuickJot_logo.png";
 
 function SignupFormPage() {
 	const dispatch = useDispatch();
+	const demoLogin = (e) => {
+		e.preventDefault();
+		return dispatch(sessionActions.demoLogin());
+	};
 	const sessionUser = useSelector((state) => state.session.user);
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
@@ -31,51 +36,67 @@ function SignupFormPage() {
 	};
 
 	return (
-		<div id="sign-up-form">
-			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
-			</form>
+		<div id="form-background">
+			<div id="log-in-form">
+				<img src={quickJotLogo} alt="main-logo" style={{ width: "15%" }} />
+				<h1>Quick Jot</h1>
+				<h3>Remember everything important.</h3>
+				<form onSubmit={handleSubmit}>
+					<ul id="form-errors">
+						{errors.map((error, idx) => (
+							<li key={idx}>{error}</li>
+						))}
+					</ul>
+					<div id="form-input">
+						<input
+							type="text"
+							placeholder="Email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
+						/>
+					</div>
+					<div id="form-input">
+						<input
+							type="text"
+							placeholder="Username"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+						/>
+					</div>
+					<div id="form-input">
+						<input
+							type="password"
+							placeholder="Password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</div>
+					<div id="form-input">
+						<input
+							type="password"
+							placeholder="Confirm password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+					</div>
+					<button type="submit" id="submit-form-button">
+						Sign Up
+					</button>
+				</form>
+				<div id="form-add-links" style={{paddingTop: 10}}>
+					<h3>Already have an account?</h3>
+					<NavLink to="/login" style={{ color: "#0BC13C", fontSize: 16 }}>
+						Log in
+					</NavLink>
+					<h3 onClick={demoLogin} style={{ color: "#0BC13C" }} id="demo-login">
+						Demo Login
+					</h3>
+				</div>
+			</div>
 		</div>
 	);
 }

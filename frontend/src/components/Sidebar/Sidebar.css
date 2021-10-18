@@ -16,15 +16,11 @@
 #side-bar-link {
 	padding: 8px;
 }
-.side-bar-selected {
-	border-right: 6px solid #00a82d;
-}
+
 .sidebar a {
 	color: white;
 }
-.sidebar a:not(#notebooks-container a):hover {
-	border-right: 6px solid #00a82d;
-}
+
 #notebooks-container span:hover {
 	border-right: 3px solid #00a82d;
 }
@@ -34,10 +30,7 @@
 .sidebar h1 {
 	font-size: 1.3em;
 }
-.sidebar h1:hover {
-	text-decoration: underline;
-	cursor: pointer;
-}
+
 .sidebar h1 i {
 	padding: 5px;
 }
@@ -46,6 +39,10 @@
 }
 #create-new-note {
 	color: #00a82d;
+    padding: 10px;
+}
+#create-new-note:hover {
+	cursor: pointer;
 }
 #toggle-notebooks:hover {
 	cursor: pointer;
@@ -79,4 +76,23 @@
 }
 .input-field:hover{
     cursor: text;
+}
+#footer-container{
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+}
+#footer-container h3 {
+    margin: 0;
+}
+.footer-icon:hover{
+    color:#04A72E;
+    cursor: pointer;
+}
+#edit-notebook-span:hover{
+    color:#04A72E;
+cursor: pointer;
+}
+#side-bar-active:hover{
+ color:#04A72E;
 }
