@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
-import { getNotes } from "../../store/notes";
+import { getNotes, createNote, getOneNote } from "../../store/notes";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
 import Search from "../Search";
@@ -19,6 +19,17 @@ function Sidebar() {
 	const notes = useSelector((state) => {
 		return state.notes.list;
 	});
+	const defaultNotebook = notebooks.find(
+		(notebook) => notebook.title === "First Notebook"
+	);
+
+	const [cNotebook, setcNotebook] = useState("");
+	useEffect(() => {
+		if (defaultNotebook) {
+			setcNotebook(defaultNotebook.id);
+		}
+	}, [defaultNotebook]);
+
 	const dispatch = useDispatch();
 	let { showModal, setShowModal } = useModal();
 	const [showSearch, setShowSearch] = useState(false);
@@ -39,6 +50,22 @@ function Sidebar() {
 		e.preventDefault();
 		setShowModal(true);
 	};
+
+	const createNewNote = async() => {
+		const payload = {
+			title: "",
+			content: "",
+			userId: userId,
+			notebookId: cNotebook,
+		};
+		const newNote = await dispatch(createNote(payload));
+
+		if (newNote) {
+			dispatch(getNotes(userId));
+			dispatch(getOneNote(newNote.id));
+			history.push(`/notes/${newNote.id}`);
+		}
+	}
 
 	const handleSaveNotebook = async (e) => {
 		e.preventDefault();
@@ -69,7 +96,7 @@ function Sidebar() {
 
 		return (
 			<span style={{ marginLeft: -5, paddingTop: 3, paddingBottom:10 }} id="toggle-notebooks">
-				<span onClick={toggleNotebooks}>
+				<span onClick={toggleNotebooks} id="side-bar-active">
 					<i
 						className={`fas fa-caret-${caret}`}
 						style={{ paddingRight: 8 }}
@@ -86,7 +113,7 @@ function Sidebar() {
 
 	const Notebook = ({ notebook }) => {
 		return (
-			<span style={{ fontSize: 15, display: "block" }}>
+			<span style={{ fontSize: 15, display: "block" }} id="side-bar-active">
 				<i className="fas fa-book-open" style={{ paddingRight: 8 }}></i>
 				<NavLink to={`/notebooks/${notebook.id}`}>{notebook.title}</NavLink>
 			</span>
@@ -120,8 +147,16 @@ function Sidebar() {
 						value={notebookName}
 					/>
 					<div id="modal-buttons">
-						<button onClick={() => setShowModal(false)} id="modal-cancel">Cancel</button>
-						<button type="submit" id="modal-create" disabled={!(notebookName.length > 0)}>Create</button>
+						<button onClick={() => setShowModal(false)} id="modal-cancel">
+							Cancel
+						</button>
+						<button
+							type="submit"
+							id="modal-create"
+							disabled={!(notebookName.length > 0)}
+						>
+							Create
+						</button>
 					</div>
 				</form>
 			</Modal>
@@ -135,20 +170,27 @@ function Sidebar() {
 					<span style={{ marginLeft: 35, fontSize: 17 }}>Search</span>
 				</div>
 			</div>
-			<NavLink to="/notes/new" id="create-new-note">
-				<div id="side-bar-link">
-					<i className="fas fa-pen" style={{ paddingRight: 8 }}></i>
-					Create New Note
-				</div>
-			</NavLink>
+			<div id="create-new-note" onClick={createNewNote}>
+				<i className="fas fa-pen" style={{ paddingRight: 8 }}></i>
+				Create New Note
+			</div>
 
-			<NavLink exact to="/" activeClassName="side-bar-selected">
+			<NavLink
+				exact
+				to="/"
+				activeClassName="side-bar-selected"
+				id="side-bar-active"
+			>
 				<div id="side-bar-link">
 					<i className="fas fa-home"></i> Home
 				</div>
 			</NavLink>
 
-			<NavLink to="/notes" activeClassName="side-bar-selected">
+			<NavLink
+				to="/notes"
+				activeClassName="side-bar-selected"
+				id="side-bar-active"
+			>
 				<div id="side-bar-link">
 					<i className="far fa-sticky-note" style={{ paddingRight: 8 }}></i>
 					Notes
@@ -164,9 +206,34 @@ function Sidebar() {
 					New Notebook
 				</span>
 			</Notebooks>
-			<div onClick={logout} id="side-bar-link" className="log-out-div">
+			<div onClick={logout} id="side-bar-active" className="log-out-div" style={{padding: 8}}>
 				<i className="fas fa-sign-out-alt" style={{ paddingRight: 8 }}></i>
 				Sign Out
+			</div>
+			<div id="footer-container">
+				<Link
+					to={{
+						pathname: "http://www.linkedin.com/in/parkerbolick/",
+					}}
+					target="_blank"
+				>
+					<i
+						className="fab fa-linkedin footer-icon fa-2x"
+						style={{ paddingRight: 10 }}
+					></i>
+				</Link>
+
+				<Link
+					to={{
+						pathname: "http://www.github.com/parkerbo",
+					}}
+					target="_blank"
+				>
+					<i
+						className="fab fa-github footer-icon fa-2x"
+						style={{ paddingLeft: 10 }}
+					></i>
+				</Link>
 			</div>
 		</div>
 	);

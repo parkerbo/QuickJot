@@ -1,6 +1,6 @@
 import React from "react";
 import * as sessionActions from "../../store/session";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
@@ -35,11 +35,34 @@ const demoLogin = (e) => {
 	return (
 		<div className="nav-bar">
 			<div id="nav-logo">
-                <img src={quickJotLogo} alt="Quick Jot Logo"/>
+				<img src={quickJotLogo} alt="Quick Jot Logo" />
 			</div>
 			<NavLink exact to="/">
 				<h1>QuickJot</h1>
 			</NavLink>
+			<Link
+				to={{
+					pathname: "http://www.linkedin.com/in/parkerbolick/",
+				}}
+				target="_blank"
+			>
+				<i
+					className="fab fa-linkedin footer-icon"
+					style={{ padding: "30px 10px 20px 30px"  }}
+				></i>
+			</Link>
+
+			<Link
+				to={{
+					pathname: "http://www.github.com/parkerbo",
+				}}
+				target="_blank"
+			>
+				<i
+					className="fab fa-github footer-icon"
+					style={{ padding: "30px 0px 30px 10px" }}
+				></i>
+			</Link>
 			<ul className="nav-bar-links">{isLoaded && sessionLinks}</ul>
 		</div>
 	);

@@ -28,11 +28,11 @@ function App() {
 
 	return (
 		<>
-			{!sessionUser && <Navigation isLoaded={isLoaded} />}
 			{sessionUser && <Sidebar />}
 			{isLoaded && (
 				<Switch>
 					<Route exact path="/">
+						{!sessionUser && <Navigation isLoaded={isLoaded} />}
 						{!sessionUser && <Splash />}
 						{sessionUser && <HomePage />}
 					</Route>
@@ -45,10 +45,9 @@ function App() {
 					<Route path="/notes">
 						<NotesBrowser />
 					</Route>
-          <Route path="/notebooks/:notebookId">
-          <NotebookBrowser notebooks={notebooks} />
-
-          </Route>
+					<Route path="/notebooks/:notebookId">
+						<NotebookBrowser notebooks={notebooks} />
+					</Route>
 				</Switch>
 			)}
 		</>

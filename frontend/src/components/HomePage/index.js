@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/ModalContext";
 const HomePage = () => {
     const dispatch = useDispatch();
-    let { showModal, setShowModal } = useModal();
+    let { setShowModal } = useModal();
     const sessionUser = useSelector((state) => state.session.user);
     const notes = useSelector((state) => {
 			return state.notes.list;
@@ -26,12 +26,10 @@ const HomePage = () => {
         res[key] = notes[key];
         return res;
     }, []);
-    console.log(recentNotes)
     useEffect(() => {
 			dispatch(getNotes(sessionUser.id));
             dispatch(getNotebooks(sessionUser.id));
 		}, [dispatch, sessionUser]);
-        console.log(notes.length)
 return (
 	<div className="home-page-content">
 		<div id="home-page-info">

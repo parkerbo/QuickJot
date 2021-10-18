@@ -1,15 +1,13 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Route, NavLink , useHistory} from "react-router-dom";
+import { Route, NavLink} from "react-router-dom";
 import { getNotes } from "../../../store/notes";
 import { getNotebooks } from "../../../store/notebooks";
 import NoteDetail from "../NotesDetail";
-import CreateNote from "../CreateNote";
 import "./NotesBrowser.css"
 const NotesBrowser = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	 const userId = useSelector((state) => state.session.user.id);
 	  const notes = useSelector((state) => {
 			return state.notes.list;
@@ -43,7 +41,7 @@ const NotesBrowser = () => {
 							activeClassName="selected"
 						>
 							<div className="note-card">
-								<h3>{note.title}</h3>
+								<h3>{(note.title === "")? "Untitled": note.title}</h3>
 								<h4>{note.content}</h4>
 								<h5>{note.updatedAt}</h5>
 							</div>
@@ -54,9 +52,6 @@ const NotesBrowser = () => {
 			<div id="main-note-content">
 				<Route path="/notes/:noteId">
 					<NoteDetail notes={notes} notebooks={notebooks} />
-				</Route>
-				<Route path="/notes/new">
-					<CreateNote notebooks={notebooks} />
 				</Route>
 			</div>
 		</main>

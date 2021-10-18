@@ -99,7 +99,6 @@ const notebooksReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case LOAD: {
 			const allNotebooks = {};
-			console.log(action);
 			action.list.forEach((notebook) => {
 				allNotebooks[notebook.id] = notebook;
 			});

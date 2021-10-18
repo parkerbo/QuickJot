@@ -43,7 +43,7 @@
     color: #0BC13C;
     cursor: pointer;
 }
-ul {
+ul:not(#form-errors) {
     display: flex;
     align-items: center;
     list-style-type: none;

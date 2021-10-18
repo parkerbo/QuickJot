@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { saveNote, getNotes, getOneNote, deleteNote } from "../../../store/notes";
 import { getNotebookNotes } from "../../../store/notes";
 import { useDispatch } from "react-redux";
-import { useCallback } from "react";
-import { Autosave, useAutosave } from "react-autosave";
 import "./NotesDetail.css"
 
 const NoteDetail = ({notes, notebooks}) => {
@@ -18,12 +16,21 @@ const NoteDetail = ({notes, notebooks}) => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 	const [cNotebook, setcNotebook] = useState("");
+	const[saveState, setSaveState] = useState("All changes saved");
 
 
-
-    const updateTitle = (e) => setTitle(e.target.value);
-    const updateContent = (e) => setContent(e.target.value);
-	const updatecNotebook = (e) => setcNotebook(e.target.value);
+    const updateTitle = (e) => {
+		setSaveState("Saving...");
+		setTitle(e.target.value);
+	}
+    const updateContent = (e) => {
+		setSaveState("Saving...")
+		setContent(e.target.value);
+	}
+	const updatecNotebook = (e) => {
+		setSaveState("Saving...");
+		setcNotebook(e.target.value);
+	}
 
 
 
@@ -36,28 +43,34 @@ const NoteDetail = ({notes, notebooks}) => {
         }
 	}, [note, dispatch]);
 
-const handleSaveNote = useCallback( async (e) => {
+ useEffect(() => {
+		const delayDebounceFn = setTimeout(async () => {
+			if (note){
+				const payload = {
+				noteId: note.id,
+				title: title,
+				content: content,
+				notebookId: cNotebook,
+			}
+			setSaveState("Saving...")
+			const newNoteSaved = await dispatch(saveNote(payload));
 
-
-	const payload = {
-		noteId: note.id,
-        title: title,
-        content: content,
-		notebookId: cNotebook
-	};
-
-	const newNoteSaved = await dispatch(saveNote(payload));
-
-    if(newNoteSaved){
-		if(window.location.href.indexOf("notebooks") > -1){
-			dispatch(getNotebookNotes(currentNotebook.id, userId));
-		} else {
-        dispatch(getNotes(userId));
+			if (newNoteSaved) {
+				if (window.location.href.indexOf("notebooks") > -1) {
+					dispatch(getNotebookNotes(currentNotebook.id, userId));
+				} else {
+					dispatch(getNotes(userId));
+				}
+				dispatch(getOneNote(note.id));
+				setSaveState("All changes saved")
+			}
 		}
-        dispatch(getOneNote(note.id));
-    }
-}, [content, title, cNotebook]);
-useAutosave({ data: content, onSave: handleSaveNote });
+			// Send Axios request here
+		}, 1000);
+
+		return () => clearTimeout(delayDebounceFn);
+ }, [title, content, cNotebook]);
+
 const removeNote = async (e) => {
     e.preventDefault();
 
@@ -77,7 +90,7 @@ if (!note) {
 	return null;
 }
 	return (
-		<form className="note-detail" onSubmit={handleSaveNote}>
+		<form className="note-detail">
 			<div id="note-form-title">
 				<input
 					type="text"
@@ -109,9 +122,7 @@ if (!note) {
 			</div>
 			<div id="note-form-buttons">
 				<div id="save-note-button-div">
-					<button type="submit" id="save-note-button">
-						Save Note
-					</button>
+						{saveState}
 				</div>
 				<div id="delete-note-button-div">
 					<button onClick={removeNote} id="delete-note-button">
