@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getNotes,createNote, getOneNote } from "../../store/notes";
 import { getNotebooks } from "../../store/notebooks";
 import { useEffect, useState } from "react";
+import date from "date-and-time";
 import { useHistory } from "react-router-dom";
 import { useModal } from "../../context/ModalContext";
 const HomePage = () => {
@@ -78,6 +79,33 @@ return (
 			<div id="recent-notes">
 				<div id="box">
 					{recentNotes.map((note) => {
+						const currentTime = new Date();
+						const noteTime = new Date(note.updatedAt);
+						const noteTimeElapsed = date
+							.subtract(currentTime, noteTime)
+							.toSeconds();
+						let noteDateFormatted;
+
+						if (noteTimeElapsed < 60) {
+							noteDateFormatted = "a few seconds ago";
+						} else if (noteTimeElapsed < 360) {
+							noteDateFormatted = "a few minutes ago";
+						} else if (noteTimeElapsed < 3600) {
+							noteDateFormatted = `${Math.floor(
+								date.subtract(currentTime, noteTime).toMinutes()
+							)} minutes ago`;
+						} else if (noteTimeElapsed < 86400) {
+							noteDateFormatted = `${Math.floor(
+								date.subtract(currentTime, noteTime).toHours()
+							)} hours ago`;
+						} else if (noteTimeElapsed < 172800) {
+							noteDateFormatted = "yesterday";
+						} else {
+							noteDateFormatted = date.format(
+								noteTime,
+								"MMM DD, 'YY - hh:mm A"
+							);
+						}
 						return (
 							<div
 								id="note-card"
@@ -86,6 +114,7 @@ return (
 							>
 								<h2>{note.title}</h2>
 								<h3>{note.content}</h3>
+								<h3 style={{marginTop:"auto"}}>{noteDateFormatted}</h3>
 							</div>
 						);
 					})}

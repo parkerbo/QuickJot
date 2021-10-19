@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Route, NavLink, useParams, useHistory } from "react-router-dom";
 import { getNotebookNotes } from "../../../store/notes";
 import Modal from "../../Modal";
+import date from "date-and-time";
 import NoteDetail from "../../Notes/NotesDetail";
 import { useModal } from "../../../context/ModalContext";
 import { getNotebooks, getCurrentNotebook, editNotebook, deleteNotebook } from "../../../store/notebooks";
@@ -67,9 +68,7 @@ const NotebookBrowser = () => {
 			history.push(`/notes/`);
 		}
 	};
-if(currentNotebook.userId !== userId){
-	history.push('/');
-}
+
 
 	return (
 		<main>
@@ -112,6 +111,30 @@ if(currentNotebook.userId !== userId){
 					</Modal>
 				</div>
 				{notes.map((note) => {
+					const currentTime = new Date();
+					const noteTime = new Date(note.updatedAt);
+					const noteTimeElapsed = date
+						.subtract(currentTime, noteTime)
+						.toSeconds();
+					let noteDateFormatted;
+
+					if (noteTimeElapsed < 60) {
+						noteDateFormatted = "a few seconds ago";
+					} else if (noteTimeElapsed < 360) {
+						noteDateFormatted = "a few minutes ago";
+					} else if (noteTimeElapsed < 3600) {
+						noteDateFormatted = `${Math.floor(
+							date.subtract(currentTime, noteTime).toMinutes()
+						)} minutes ago`;
+					} else if (noteTimeElapsed < 86400) {
+						noteDateFormatted = `${Math.floor(
+							date.subtract(currentTime, noteTime).toHours()
+						)} hours ago`;
+					} else if (noteTimeElapsed < 172800) {
+						noteDateFormatted = "yesterday";
+					} else {
+						noteDateFormatted = date.format(noteTime, "MMM DD, 'YY - hh:mm A");
+					}
 					return (
 						<NavLink
 							key={note.id}
@@ -121,7 +144,7 @@ if(currentNotebook.userId !== userId){
 							<div className="note-card">
 								<h3>{note.title}</h3>
 								<h4>{note.content}</h4>
-								<h5>{note.updatedAt}</h5>
+								<h5>{noteDateFormatted}</h5>
 							</div>
 						</NavLink>
 					);

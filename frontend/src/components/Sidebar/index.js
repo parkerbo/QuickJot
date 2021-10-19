@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import { NavLink, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getNotebooks, createNotebook } from "../../store/notebooks";
-import { getNotes, createNote, getOneNote, getNotebookNotes } from "../../store/notes";
+import {
+	getNotes,
+	createNote,
+	getOneNote,
+	getNotebookNotes,
+} from "../../store/notes";
 import * as sessionActions from "../../store/session";
 import Modal from "../Modal";
 import Search from "../Search";
@@ -42,7 +47,7 @@ function Sidebar() {
 	const logout = (e) => {
 		e.preventDefault();
 		dispatch(sessionActions.logout());
-		history.push('/');
+		history.push("/");
 	};
 
 	const toggleModal = (e) => {
@@ -51,7 +56,7 @@ function Sidebar() {
 		setShowModal(true);
 	};
 
-	const createNewNote = async() => {
+	const createNewNote = async () => {
 		const payload = {
 			title: "",
 			content: "",
@@ -65,7 +70,7 @@ function Sidebar() {
 			dispatch(getOneNote(newNote.id));
 			history.push(`/notes/${newNote.id}`);
 		}
-	}
+	};
 
 	const handleSaveNotebook = async (e) => {
 		e.preventDefault();
@@ -96,7 +101,10 @@ function Sidebar() {
 		};
 
 		return (
-			<span style={{ marginLeft: -5, paddingTop: 3, paddingBottom:10 }} id="toggle-notebooks">
+			<span
+				style={{ marginLeft: -5, paddingTop: 3, paddingBottom: 10 }}
+				id="toggle-notebooks"
+			>
 				<span onClick={toggleNotebooks} id="side-bar-active">
 					<i
 						className={`fas fa-caret-${caret}`}
@@ -207,7 +215,12 @@ function Sidebar() {
 					New Notebook
 				</span>
 			</Notebooks>
-			<div onClick={logout} id="side-bar-active" className="log-out-div" style={{padding: 8}}>
+			<div
+				onClick={logout}
+				id="side-bar-active"
+				className="log-out-div"
+				style={{ padding: 8 }}
+			>
 				<i className="fas fa-sign-out-alt" style={{ paddingRight: 8 }}></i>
 				Sign Out
 			</div>
