@@ -40,7 +40,7 @@ function SignupFormPage() {
 			<div id="log-in-form">
 				<img src={quickJotLogo} alt="main-logo" style={{ width: "15%" }} />
 				<h1>Quick Jot</h1>
-				<h3>Remember everything important.</h3>
+				<h3 style={{padding: 0}}>Remember everything important.</h3>
 				<form onSubmit={handleSubmit}>
 					<ul id="form-errors">
 						{errors.map((error, idx) => (

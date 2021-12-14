@@ -80,7 +80,6 @@ export const editNotebook = (notebookDetails) => async (dispatch) => {
 // 	}
 // };
 
-
 export const deleteNotebook = (notebookId) => async (dispatch) => {
 	const response = await csrfFetch(`/api/notebooks/${notebookId}`, {
 		method: "DELETE",
@@ -124,5 +123,6 @@ const notebooksReducer = (state = initialState, action) => {
 			return state;
 	}
 };
+
 
 export default notebooksReducer;

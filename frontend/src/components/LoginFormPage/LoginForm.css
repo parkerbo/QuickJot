@@ -5,7 +5,8 @@
     margin: 0 auto;
     align-items: center;
     width: 500px;
-    min-height: 700px;
+    height: 90vh;
+    max-height: 700px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 8px;
 }

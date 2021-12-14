@@ -64,7 +64,7 @@ const NoteDetail = ({notes, notebooks}) => {
 				setSaveState("All changes saved")
 			}
 		}
-			// Send Axios request here
+				
 		}, 1000);
 
 		return () => clearTimeout(delayDebounceFn);

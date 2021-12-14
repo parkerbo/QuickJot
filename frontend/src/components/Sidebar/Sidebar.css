@@ -80,7 +80,7 @@
 #footer-container{
     margin-top: auto;
     display: flex;
-    justify-content: center;
+	justify-content: center;
 }
 #footer-container h3 {
     margin: 0;
