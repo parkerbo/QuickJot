@@ -24,6 +24,7 @@ const Search = (props) => {
 				return notebookTitle.includes(searchQuery.toLowerCase());
 			});
 		};
+	//search filter function execution
    const filteredNotebooks = queryNotebooks(props.notebooks, searchQuery);
    const filteredNotes = queryNotes(props.notes, searchQuery);
    useEffect(() => {
@@ -33,7 +34,6 @@ const Search = (props) => {
    }, [props])
 
 
-//return null
    if (!props.show) {
 			return null;
 		}
