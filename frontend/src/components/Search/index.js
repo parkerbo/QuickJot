@@ -80,3 +80,4 @@ const Search = (props) => {
 }
 
 export default Search;
+// export component
